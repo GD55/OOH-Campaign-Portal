@@ -1,0 +1,144 @@
+.container {
+  padding-top: 80px;
+}
+
+.contain {
+  margin-left: 50px;
+  margin-right: 50px;
+  padding-top: 80px;
+}
+
+.jumbotron {
+  background-color: #dee2e6 !important;
+}
+/* navbar */
+
+.nav {
+  height: 40px;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  z-index: 3;
+}
+
+.footer{
+  width: 100%;
+  background-color: white;
+  height: 100px;
+}
+
+.fixed {
+  position: fixed;
+  left: 50%;
+}
+
+#pageHeading{
+  padding-top: 70px;
+}
+
+/* .scrollLeft{
+  padding-left: 50% ;
+  position: absolute;
+} */
+
+.navItem {
+  text-decoration: none;
+  color: white;
+}
+
+.navItem:hover {
+  text-decoration: none;
+  color: gray;
+}
+
+.campaignTable{
+  /* margin-bottom : 25px; */
+  padding-top: 200px;
+}
+
+.tab th,
+.tab td {
+  padding: 0.25em 0.25em;
+  margin: 0.15em;
+  font-size: 0.83rem;
+  text-align: center;
+  vertical-align: top;
+  border: 1px solid black;
+  white-space: nowrap;
+  height: 32px;
+  width: 200px !important;
+}
+
+.tab small {
+  white-space: normal;
+}
+
+table td {
+  vertical-align: top;
+  padding: 0;
+}
+
+.btn-group-xs > .btn,
+.btn-xs {
+  padding: 0.4rem 0.4rem;
+  font-size: 0.75rem;
+  line-height: 0.6;
+  border-radius: 0.2rem;
+}
+
+.border-none {
+  border: none !important;
+}
+
+select.border-none,
+input[type="number"].border-none::-webkit-inner-spin-button,
+input[type="number"].border-none::-webkit-outer-spin-button,
+input[type="date"].border-none::-webkit-inner-spin-button,
+input[type="date"].border-none::-webkit-outer-spin-button,
+input[type="date"].border-none::-webkit-calendar-picker-indicator {
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+}
+
+input[type="date"].border-none::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* For IE10 */
+select.border-none::-ms-expand {
+  display: none;
+}
+
+.activePage {
+  background-color: skyblue;
+}
+
+.scrollT{
+  background-color: white
+}
+
+.Camapignshead{
+  z-index: 2;
+}
+
+.sheetTabs{
+  padding-bottom: 36px;
+}
+
+/* .tab th{
+  width: 236px;
+}
+
+.tab td{
+  width: 200px;
+} */
+
+.w-200{
+  width: 200px;
+}

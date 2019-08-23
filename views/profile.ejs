@@ -1,0 +1,44 @@
+<% include ./partials/header %>
+<div class="container">
+    <!-- show any messages that come back with authentication -->
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger">
+        <%= message %>
+    </div>
+    <% } %>
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-6 mx-auto">
+            <div class="card rounded-lg bg-light">
+                <div class="card-body">
+                    <h3><span class="fa fa-user"></span> Local</h3>
+
+                    <p>
+                        <strong>id</strong>:
+                        <%= currentUser.id %><br>
+                        <strong>designation</strong>:
+                        <%= currentUser.designation %><br>
+                        <strong>username</strong>:
+                        <%= currentUser.name %><br>
+                        <strong>office id</strong>:
+                        <%= currentUser.office_id %><br>
+                        <strong>email</strong>:
+                        <%= currentUser.email %><br>
+                        <strong>phone no</strong>:
+                        <%= currentUser.phone_no %>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<% include ./partials/footer %>

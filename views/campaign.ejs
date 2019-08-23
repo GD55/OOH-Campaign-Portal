@@ -1,0 +1,868 @@
+<% include ./partials/header %>
+<div class="Camapignshead position-fixed w-100 bg-white">
+    <div class="page-header text-center">
+        <h1 id="pageHeading" class=""> Campaign Page</h1>
+    </div>
+    <div class="sheetTabs pl-5 ">
+        <span id="designation" class="d-none"><%= currentUser.designation %></span>
+        <span id="userId" class="d-none"><%= currentUser.id %></span>
+        <span id="max" class="d-none"><%= max %></span>
+        <button class="btn btn-primary" id="adminHead" onclick="changeHidden('admin')">Master Sheet</button>
+        <button class="btn btn-primary" id="coordinatorHead" onclick="changeHidden('coordinator')">Coordinator</button>
+        <button class="btn btn-primary" id="designerHead" onclick="changeHidden('designer')">Designer</button>
+        <button class="btn btn-primary" id="accountantHead" onclick="changeHidden('accountant')">Accounts</button>
+    </div>
+</div>
+<%
+        function convert(str) {
+            var date = new Date(str),
+                mnth = ("0" + (date.getMonth()+1)).slice(-2),
+                day  = ("0" + date.getDate()).slice(-2);
+                hours  = ("0" + date.getHours()).slice(-2);
+                minutes = ("0" + date.getMinutes()).slice(-2);
+            return [ day,mnth,date.getFullYear() ].join("-")+" "+hours+":"+ minutes;
+        }%>
+<div class="contain campaignTable">
+    <table class="mb-2" align="center">
+        <tbody>
+            <tr>
+                <td class=" position-fixed Camapignshead bg-white">
+                    <table class="fixedTableHeadings tab appendvendorHeading">
+                        <% if(currentUser.designation){ %>
+                        <tr class="firstRow d-none">
+                            <% if(currentUser.designation == 'admin'){ %>
+                            <th>
+                                <a class="btn btn-xs btn-info " href="/campaign/new"> Add
+                                    new Campaign</a>
+                            </th>
+                            <% }else{ %>
+                            <th>Campaigns</th>
+                            <% } %>
+                        </tr>
+                        <% } %>
+                        <tr class="">
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <th>Project Id</th>
+                        </tr>
+                        <tr>
+                            <th>Last Updated</th>
+                        </tr>
+                        <tr>
+                            <th>Client Name</th>
+                        </tr>
+                        <tr>
+                            <th>Brand Name</th>
+                        </tr>
+                        <tr>
+                            <th>City/State</th>
+                        </tr>
+                        <tr>
+                            <th>Media Format</th>
+                        </tr>
+                        <tr>
+                            <th>Project Handled By</th>
+                        </tr>
+                        <tr>
+                            <th>Assigned To</th>
+                        </tr>
+                    </table>
+                </td>
+                <td class=" position-fixed scrollT bg-white">
+                    <table class="scrollingTableHeadings tab appendvendorHeading">
+                        <% if(currentUser.designation){ %>
+                        <tr class="firstRow d-none">
+                            <% if(currentUser.designation == 'admin'){ %>
+                            <th>
+                                <a class="btn btn-xs btn-info " href="/campaign/new"> Add
+                                    new Campaign</a>
+                            </th>
+                            <% }else{ %>
+                            <th>Campaigns</th>
+                            <% } %>
+                        </tr>
+                        <% } %>
+                        <tr class="">
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <th>Project Id</th>
+                        </tr>
+                        <tr>
+                            <th>Last Updated</th>
+                        </tr>
+                        <tr>
+                            <th>Client Name</th>
+                        </tr>
+                        <tr>
+                            <th>Brand Name</th>
+                        </tr>
+                        <tr>
+                            <th>City/State</th>
+                        </tr>
+                        <tr>
+                            <th>Media Format</th>
+                        </tr>
+                        <tr>
+                            <th>Project Handled By</th>
+                        </tr>
+                        <tr>
+                            <th>Assigned To</th>
+                        </tr>
+                        <tr>
+                            <th>Month</th>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                        </tr>
+                        <tr>
+                            <th>Media Type</th>
+                        </tr>
+                        <tr>
+                            <th>No. of Units</th>
+                        </tr>
+                        <tr>
+                            <th>Duration</th>
+                        </tr>
+                        <tr>
+                            <th>Campaign Start Date</th>
+                        </tr>
+                        <tr>
+                            <th>Campaign End Date</th>
+                        </tr>
+                        <tr>
+                            <th>Campaign extension</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">PO from Client</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Invoice/Album Sent to Client</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Creatives Recieved - Clients</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Mockups Ready for Approval</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Creatives Approved - Clients</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Creatives-sent - Vendor</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Album shared to Accountant</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">PO Recieved Client</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Invoice Sent - Client</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">PI Sent - Client</th>
+                        </tr>
+                        <% for(var i=0; i<max; i++){ %>
+                        <tr class="">
+                            <th class="accountant coordinator admin">vendor <%= i+1 %></th>
+                        </tr>
+                        <tr class="">
+                            <th class="coordinator admin">Vendor Details</th>
+                        </tr>
+                        <tr class="">
+                            <th class="coordinator admin">No Of Units</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Installation Pictures</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Mid Month Reporting</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Campaign End Pictures</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Work Order Sent</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Vendor Form</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Work Order Sent Vendor</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Invoice Received Vendor</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Filing Done Invoices</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Accounting Done Tally</th>
+                        </tr>
+                        <% } %>
+                        <tr class="newVendor d-none">
+                            <th class="">New Vendor</th>
+                        </tr>
+                    </table>
+                </td>
+                <td class="">
+                    <table class="w-200 tab appendvendorHeading">
+                        <% if(currentUser.designation){ %>
+                        <tr class="firstRow d-none">
+                            <% if(currentUser.designation == 'admin'){ %>
+                            <th>
+                                <a class="btn btn-xs btn-info " href="/campaign/new"> Add
+                                    new Campaign</a>
+                            </th>
+                            <% }else{ %>
+                            <th>Campaigns</th>
+                            <% } %>
+                        </tr>
+                        <% } %>
+                        <tr class="">
+                            <th>Status</th>
+                        </tr>
+                        <tr>
+                            <th>Project Id</th>
+                        </tr>
+                        <tr>
+                            <th>Last Updated</th>
+                        </tr>
+                        <tr>
+                            <th>Client Name</th>
+                        </tr>
+                        <tr>
+                            <th>Brand Name</th>
+                        </tr>
+                        <tr>
+                            <th>City/State</th>
+                        </tr>
+                        <tr>
+                            <th>Media Format</th>
+                        </tr>
+                        <tr>
+                            <th>Project Handled By</th>
+                        </tr>
+                        <tr>
+                            <th>Assigned To</th>
+                        </tr>
+                        <tr>
+                            <th>Month</th>
+                        </tr>
+                        <tr>
+                            <th>Year</th>
+                        </tr>
+                        <tr>
+                            <th>Media Type</th>
+                        </tr>
+                        <tr>
+                            <th>No. of Units</th>
+                        </tr>
+                        <tr>
+                            <th>Duration</th>
+                        </tr>
+                        <tr>
+                            <th>Campaign Start Date</th>
+                        </tr>
+                        <tr>
+                            <th>Campaign End Date</th>
+                        </tr>
+                        <tr>
+                            <th>Campaign extension</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">PO from Client</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Invoice/Album Sent to Client</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Creatives Recieved - Clients</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Mockups Ready for Approval</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Creatives Approved - Clients</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Creatives-sent - Vendor</th>
+                        </tr>
+                        <tr>
+                            <th class="designer d-none">Album shared to Accountant</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">PO Recieved Client</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Invoice Sent - Client</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">PI Sent - Client</th>
+                        </tr>
+                        <% for(var i=0; i<max; i++){ %>
+                        <tr class="">
+                            <th class="accountant coordinator admin">vendor <%= i+1 %></th>
+                        </tr>
+                        <tr class="">
+                            <th class="coordinator admin">Vendor Details</th>
+                        </tr>
+                        <tr class="">
+                            <th class="coordinator admin">No Of Units</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Installation Pictures</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Mid Month Reporting</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Campaign End Pictures</th>
+                        </tr>
+                        <tr>
+                            <th class="coordinator d-none">Work Order Sent</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Vendor Form</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Work Order Sent Vendor</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Invoice Received Vendor</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Filing Done Invoices</th>
+                        </tr>
+                        <tr>
+                            <th class="accountant d-none">Accounting Done Tally</th>
+                        </tr>
+                        <% } %>
+                        <tr class="newVendor d-none">
+                            <th class="">New Vendor</th>
+                        </tr>
+                    </table>
+                </td>
+                <% var campaignHandler; %>
+                <% var assignedTo; %>
+                <% campaigns.forEach(function(campaign){ %>
+                <% users.forEach(function(user){
+                            if(campaign.projectHandler == user.id){
+                                campaignHandler = user.name;
+                            }
+                            if(campaign.assignedTo == user.id){
+                                assignedTo = user.name;
+                            }
+                        }); %>
+                <td class=" position-fixed bg-white scrollL <%=campaign.id%> <%=campaign.assignedTo%>">
+                    <table class="fixedFields tab appendVendorBlank">
+                        <% if(currentUser.designation){ %>
+                        <tr class="firstRow d-none">
+                            <td>
+                                <button class="btn btn-xs btn-warning"
+                                    onclick="edit('<%=campaign.id%>','<%=currentUser.designation%>')">
+                                    Edit
+                                </button>
+                                <% if(currentUser.designation == 'admin'){ %>
+                                <form class="d-inline" id="delete-comment"
+                                    action="/campaign/<%= campaign.id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-xs btn-danger"
+                                        onclick="return confirm('Are you sure you want to Remove?');">Delete</button>
+                                </form>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <tr class="">
+                            <td class="admin">
+                                <select class="text-center bg-transparent border-none" name="Completed"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="Completed" <% if(campaign.Completed == "Completed"){ %> selected
+                                        <% } %>>
+                                        Completed
+                                    </option>
+                                    <option value="Incomplete" <% if(campaign.Completed == "Incomplete"){ %> selected
+                                        <% } %>>In Progress
+                                    </option>
+                                    <option class="text-center" value="On Hold"
+                                        <% if(campaign.Completed == "On Hold"){ %> selected <% } %>> On Hold
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="campaignId"><%=campaign.id%></td>
+                        </tr>
+                        <tr>
+                            <td><%=convert(campaign.last_updated)%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.clientName%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.brandName%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.city%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.mediaFormat%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaignHandler%></td>
+                        </tr>
+                        <tr>
+                            <td><%=assignedTo%></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class=" <%=campaign.id%> <%=campaign.assignedTo%>">
+                    <table class="w-200 fields tab appendVendorBlank">
+                        <% if(currentUser.designation){ %>
+                        <tr class="firstRow d-none">
+                            <td>
+                                <a class="btn btn-xs btn-warning"
+                                    onclick="edit('<%=campaign.id%>','<%=currentUser.designation%>')">
+                                    Edit
+                                </a>
+                                <% if(currentUser.designation == 'admin'){ %>
+                                <form class="d-inline" id="delete-comment"
+                                    action="/campaign/<%= campaign.id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-xs btn-danger"
+                                        onclick="return confirm('Are you sure you want to Remove?');">Delete</button>
+                                </form>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <tr class="">
+                            <td class="admin">
+                                <select class="text-center bg-transparent border-none" name="Completed"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="Completed" <% if(campaign.Completed == "Completed"){ %> selected
+                                        <% } %>>
+                                        Completed
+                                    </option>
+                                    <option value="Incomplete" <% if(campaign.Completed == "Incomplete"){ %> selected
+                                        <% } %>>In Progress
+                                    </option>
+                                    <option class="text-center" value="On Hold"
+                                        <% if(campaign.Completed == "On Hold"){ %> selected <% } %>> On Hold
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="campaignId"><%=campaign.id%></td>
+                        </tr>
+                        <tr>
+                            <td><%=convert(campaign.last_updated)%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.clientName%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.brandName%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.city%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.mediaFormat%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaignHandler%></td>
+                        </tr>
+                        <tr>
+                            <td><%=assignedTo%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.month%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.year%></td>
+                        </tr>
+                        <tr>
+                            <td><%=campaign.mediaType%></td>
+                        </tr>
+                        <tr>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="units"
+                                    value="<%=campaign.units%>" onchange="updateCampaign(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="duration"
+                                    value="<%=campaign.duration%>" onchange="updateCampaign(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" id="startDate<%=campaign.id%>"
+                                    type="date" name="startDate" value="<%=campaign.startDate%>"
+                                    onchange="updateCampaign(this.value, this.name),changeEndDate(this.value,'<%=campaign.id%>')"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" id="endDate<%=campaign.id%>"
+                                    type="date" name="endDate" min="<%=campaign.startDate%>"
+                                    value="<%=campaign.endDate%>" onchange="updateCampaign(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin">
+                                <select class="text-center bg-transparent border-none" name="extension"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.extension){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.extension){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="coordinator d-none">
+                                <select class="text-center bg-transparent border-none" name="POFromClient"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.POFromClient){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.POFromClient){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                                <select class="text-center bg-transparent border-none" name="InvoiceSentClient"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.InvoiceSentClient){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.InvoiceSentClient){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="designer d-none">
+                                <select class="text-center bg-transparent border-none" name="CreativeRecievedClient"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.CreativeRecievedClient){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.CreativeRecievedClient){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="designer d-none">
+                                <select class="text-center bg-transparent border-none" name="MockUpReady"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.MockUpReady){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.MockUpReady){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="designer d-none">
+                                <select class="text-center bg-transparent border-none" name="CreativesApprovedClient"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.CreativesApprovedClient){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.CreativesApprovedClient){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="designer d-none">
+                                <select class="text-center bg-transparent border-none" name="CreativesSentVendor"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.CreativesSentVendor){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.CreativesSentVendor){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="designer d-none">
+                                <select class="text-center bg-transparent border-none" name="AlbumShared"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.AlbumShared){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.AlbumShared){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="PORecievedClient"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.PORecievedClient){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.PORecievedClient){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="InvoiceSentClientAccounts"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.InvoiceSentClientAccounts){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.InvoiceSentClientAccounts){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="PISentClient"
+                                    onchange="updateCampaign(this.value, this.name)" disabled>
+                                    <option value="1" <% if(campaign.PISentClient){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!campaign.PISentClient){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <% var a=0;
+                            assignments.forEach(function(assignment){
+                                if(assignment.project_id == campaign.id){
+                                    a=a+1;   
+                            %>
+                        <tr>
+                            <td class="accountant coordinator admin">
+                                <%= assignment.vendorName %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="vendorDetails"
+                                    value="<%= assignment.vendorDetails %>"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="noOfUnits"
+                                    value="<%= assignment.noOfUnits %>"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                                <select class="text-center bg-transparent border-none" name="InstallationPictures"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.InstallationPictures){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.InstallationPictures){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                                <select class="text-center bg-transparent border-none" name="MidMonthReporting"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.MidMonthReporting){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.MidMonthReporting){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                                <select class="text-center bg-transparent border-none" name="CampaignEndPictures"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.CampaignEndPictures){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.CampaignEndPictures){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                                <select class="text-center bg-transparent border-none" name="WorkOrderSent"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.WorkOrderSent){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.WorkOrderSent){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="VendorForm"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.VendorForm){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.VendorForm){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="WorkOrderSentVendor"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.WorkOrderSentVendor){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.WorkOrderSentVendor){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="InvoiceReceivedVendor"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.InvoiceReceivedVendor){ %> selected <% } %>>
+                                        Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.InvoiceReceivedVendor){ %> selected <% } %>>
+                                        No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="FilingDoneInvoices"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.FilingDoneInvoices){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.FilingDoneInvoices){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                                <select class="text-center bg-transparent border-none" name="AccountingDoneTally"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                                    <option value="1" <% if(assignment.AccountingDoneTally){ %> selected <% } %>>Yes
+                                    </option>
+                                    <option value="0" <% if(!assignment.AccountingDoneTally){ %> selected <% } %>>No
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <%
+                                }
+                            });
+                            while(a<max){ %>
+                        <tr>
+                            <td class="emptyVendor accountant coordinator admin">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator admin">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator admin">
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="coordinator d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="accountant d-none">
+                            </td>
+                        </tr>
+                        <% a=a+1;
+                            } %>
+                        <tr class="admin addNewVendor">
+                            <td class="replace border-none"><a class="btn btn-xs btn-info" onclick="repOptions()">
+                                    Add new
+                                </a>
+                            </td>
+                            <td class="backInitial admin d-none">
+                                <select class="selectVendor" name="assignedTo" required>
+                                    <option value="">Select an option</option>
+                                    <% vendors.forEach(function(vendor){ %>
+                                    <option value="<%= vendor.id %>"><%= vendor.vendorName + ", id-" + vendor.id  %>
+                                    </option>
+                                    <% }); %>
+                                </select>
+                                <a class="btn btn-xs btn-info"
+                                    onclick="assignVendor('<%=campaign.id%>','<%=currentUser.designation%>')">
+                                    Assign
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <% }); %>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<% include ./partials/footer %>

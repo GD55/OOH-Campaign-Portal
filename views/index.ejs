@@ -1,0 +1,35 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <!-- show any messages that come back with authentication -->
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger">
+        <%= message %>
+    </div>
+    <% } %>
+    <div class="jumbotron text-center">
+        <h1><span class="fa fa-lock"></span> Office Authentication</h1>
+
+        <p>Login or Register with:</p>
+
+        <a href="/login" class="btn btn-primary"><span class="fa fa-user"></span> Login</a>
+        <% if(currentUser){ %>
+        <% if(currentUser.designation == "admin"){ %>
+        <a href="/signup" class="btn btn-primary"><span class="fa fa-user"></span> Signup</a>
+        <% } %>
+        <% } %>
+    </div>
+    <div class="text-center">
+        <% if(currentUser){ %>
+        <a href="/campaign" class="btn btn-success btn-lg btn-block"> Campaign Tracker</a>
+        <a href="/venNet" class="btn btn-primary btn-lg btn-block"> Ven-net</a>
+        <div class="row m-2">
+            <a href="/tools/excel" class="col-md-5 btn btn-info btn-lg">Excel Tool</a>
+            <span class="col-md-2"></span>
+            <a href="/tools/ppt" class="col-md-5 btn btn-info btn-lg">Ppt Tool</a>
+        </div>
+        <a href="#" class="btn btn-warning btn-lg btn-block"> Accounts</a>
+        <% } %>
+    </div>
+</div>
+<% include ./partials/footer %>

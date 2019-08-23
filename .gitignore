@@ -1,0 +1,11 @@
+#dependencies
+/node_modules
+
+#path specific scripts
+/python
+
+#uploaded data
+/uploads
+
+#vscode setting
+/.vscode

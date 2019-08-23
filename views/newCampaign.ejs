@@ -1,0 +1,147 @@
+<% include ./partials/header %>
+
+<div class="container">
+    <div class="col-sm-6 mx-auto">
+
+        <h1><i class="fas fa-sign-in-alt"></i> Create New Campaign</h1>
+
+        <!-- LOGIN FORM -->
+        <form action="/campaign" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>ProjectHandler</label>
+                    <!-- <input list="users" type="text" class="form-control" name="username" autofocus required> -->
+                    <!-- <datalist id="users"> -->
+                    <select class="form-control" name="projectHandler" autofocus required>
+                        <option value="">Select project handler</option>
+                        <% users.forEach(function(user){ %>
+                        <option value="<%= user.id %>"><%= user.name %></option>
+                        <% }); %>
+                    </select>
+                    <!-- </datalist> -->
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Assigned to</label>
+                    <select class="form-control" name="assignedTo" required>
+                        <option value="">Select an option</option>
+                        <% users.forEach(function(user){ %>
+                        <option value="<%= user.id %>"><%= user.name %></option>
+                        <% }); %>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Month</label>
+                    <input type="text" class="form-control" name="month" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Year</label>
+                    <input type="text" class="form-control" name="year" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Client Name</label>
+                    <select class="form-control" name="clients" onchange="populatebrand(this.value)" required>
+                        <option value="">Select client</option>
+                        <option value="new">Add new</option>
+                        <% clients.forEach(function(client){ %>
+                        <option value="<%= client.id %>"><%= client.name %></option>
+                        <% }); %>
+                    </select>
+                    <!-- <input list="clients" type="text" class="form-control" name="officeId" onchange="populatebrand(this)"
+                    required>
+                <datalist id="clients">
+                    <% clients.forEach(function(client){ %>
+                    <option value="<%= client.id %>" data-id="<%= client.id %>"><%= client.name %></option>
+                    <% }); %>
+                </datalist> -->
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Brand Name</label>
+                    <select id="brands" class="form-control" name="brands" onchange="brandSelected(this.value)"
+                        required>
+                        <option value="">Select client name first</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>New Client Name</label>
+                    <input id="new_client" type="text" class="form-control" name="new_client" disabled>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>New Brand Name</label>
+                    <input id="new_brand" type="text" class="form-control" name="new_brand" disabled>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label>Media Format</label>
+                    <input type="text" class="form-control" name="mediaFormat" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label>No. of Units</label>
+                    <input type="number" class="form-control" name="units">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Media Type</label>
+                    <input type="text" class="form-control" name="mediaType" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>City</label>
+                    <input type="text" class="form-control" name="city" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Duration</label>
+                    <input type="text" class="form-control" name="duration" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Start Date</label>
+                    <input type="date" class="form-control" name="startDate" onchange="changeEndDate(this.value,'n')">
+                </div>
+                <div class="form-group col-md-6">
+                    <label>End date</label>
+                    <input type="date" class="form-control" id="endDaten" name="endDate">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Extension</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="extension" id="extensionRadio1" value="1">
+                        <label class="form-check-label" for="extensionRadio1">yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="extension" id="extensionRadio2" value="0"
+                            checked>
+                        <label class="form-check-label" for="extensionRadio2">no</label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Status</label>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="completed" id="completedRadio1" value="Completed">
+                        <label class="form-check-label" for="completedRadio1">Completed</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="completed" id="completedRadio2" value="Incomplete"
+                            checked>
+                        <label class="form-check-label" for="completedRadio2">In Progress</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-warning btn-lg">Create</button>
+        </form>
+
+    </div>
+</div>
+
+<% include ./partials/footer %>

@@ -1,0 +1,29 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <title>Office Authentication</title>
+</head>
+
+<body>
+    <div class="nav">
+        <a class="navItem" id="" href="/">Home</a>
+        <% if(currentUser){ %>
+        <a class="navItem" href="/profile"> Hello <%=currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1)%> (<%=currentUser.designation.charAt(0).toUpperCase() + currentUser.designation.slice(1)%>)</a>
+        <a href="/campaign" class="navItem"> Campaign Tracker</a>
+        <a href="/venNet" class="navItem"> Ven-net</a>
+        <a href="#" class="navItem"> Accounts</a>
+        <% if(currentUser.designation == "admin"){ %>
+        <a class="navItem" href="/signup"> Sign Up</a>
+        <a class="navItem" href="/deleteUser"> Delete User</a>
+        <% } %>
+        <a class="navItem" href="/logout"> logout</a>
+        <% } %>
+    </div>
