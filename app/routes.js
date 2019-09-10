@@ -464,9 +464,9 @@ module.exports = function (app, passport, con, upload) {
             workbook.xlsx.writeFile("./uploads/vendors.xlsx")
                 .then(function () {
                     console.log("file saved!");
+                    res.redirect('/uploads/vendors.xlsx');
                 });
         });
-        res.redirect('back');
     });
 
     // upload multiple accounts extra files
@@ -656,7 +656,7 @@ module.exports = function (app, passport, con, upload) {
     // =====================================
 
     // show excel tool
-    app.get('/tools/excel',notDesiger, function (req, res) {
+    app.get('/tools/excel', notDesiger, function (req, res) {
         var sql = "SELECT * FROM `ppt`";
         con.query(sql, function (err, pptFiles) {
             if (err) {
@@ -679,7 +679,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show ppt tool
-    app.get('/tools/ppt',notDesiger, function (req, res) {
+    app.get('/tools/ppt', notDesiger, function (req, res) {
         var sql = "SELECT * FROM `excel`";
         con.query(sql, function (err, excelFiles) {
             if (err) {
@@ -702,7 +702,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // copy file from source to destination
-    app.get('/api/copy/:source/:destination',notDesiger, function (req, res) {
+    app.get('/api/copy/:source/:destination', notDesiger, function (req, res) {
         var source = "public/templates/" + req.params.source;
         var destination = "uploads/" + req.params.destination;
         fs.copyFile(source, destination, (err) => {
@@ -714,7 +714,7 @@ module.exports = function (app, passport, con, upload) {
 
     // upload all files
     supload = upload.array('sourceFiles', 12);
-    app.post('/api/upload/:type',notDesiger, function (req, res) {
+    app.post('/api/upload/:type', notDesiger, function (req, res) {
         var type = req.params.type;
         files = []
         supload(req, res, function (err) {
@@ -749,14 +749,14 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
-    app.delete('/api/deleteSource',notDesiger, function (req, res) {
+    app.delete('/api/deleteSource', notDesiger, function (req, res) {
         var value = req.body.name;
         var type = req.body.type;
         deletefile(type, value);
         return;
     });
 
-    app.delete('/api/deleteAll',notDesiger, function (req, res) {
+    app.delete('/api/deleteAll', notDesiger, function (req, res) {
         var type = req.body.type;
         var sql = "SELECT * FROM `" + type + "` WHERE source = 1";
         con.query(sql, function (err, files) {
@@ -771,7 +771,7 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
-    app.delete('/api/cleanTable',notDesiger, function (req, res) {
+    app.delete('/api/cleanTable', notDesiger, function (req, res) {
         var type = req.body.type;
         var sql = "SELECT * FROM `" + type + "`";
         con.query(sql, function (err, files) {
@@ -817,7 +817,7 @@ module.exports = function (app, passport, con, upload) {
         });
     }
 
-    app.post('/api/pyhton',notDesiger, function (req, res) {
+    app.post('/api/pyhton', notDesiger, function (req, res) {
         dest = req.body.destination;
         type = req.body.type;
         if (type == "ppt") {
