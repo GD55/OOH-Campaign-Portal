@@ -19,7 +19,6 @@
         <a class="navItem" href="/profile"> Hello <%=currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1)%> (<%=currentUser.designation.charAt(0).toUpperCase() + currentUser.designation.slice(1)%>)</a>
         <a href="/campaign" class="navItem"> Campaign Tracker</a>
         <a href="/venNet" class="navItem"> Ven-net</a>
-        <a href="#" class="navItem"> Accounts</a>
         <% if(currentUser.designation == "admin"){ %>
         <a class="navItem" href="/signup"> Sign Up</a>
         <a class="navItem" href="/deleteUser"> Delete User</a>

@@ -9,6 +9,8 @@ module.exports = function (app, passport, con, upload) {
     // });
 
     fs = require('fs');
+    var xlsx = require('xlsx');
+    var excel = require('exceljs');
 
     // get clients of a brand
     app.get('/api/brands/:client_id', isAdmin, function (req, res) {
@@ -403,6 +405,114 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
+    // show new vendor page
+    app.get('/venNet/upload', function (req, res) {
+        res.render('uploadVendor', {
+            currentUser: req.user,
+        });
+    });
+
+    // download all vendors
+    app.get('/venNet/download', function (req, res) {
+        con.query("SELECT * FROM `vendors`", function (err, vendors, fields) {
+            const jsonvendors = JSON.parse(JSON.stringify(vendors));
+            console.log(jsonvendors);
+            let workbook = new excel.Workbook(); //creating workbook
+            let worksheet = workbook.addWorksheet('Vendors'); //creating worksheet
+
+            //  WorkSheet Header
+            worksheet.columns = [
+                { header: 'id', key: 'id', width: 5 },
+                { header: 'organizationType', key: 'organizationType', width: 30 },
+                { header: 'vendorName', key: 'vendorName', width: 30 },
+                { header: 'officeAddress', key: 'officeAddress', width: 100 },
+                { header: 'ocity', key: 'ocity', width: 30 },
+                { header: 'opinCode', key: 'opinCode', width: 30 },
+                { header: 'ostate', key: 'ostate', width: 30 },
+                { header: 'registeredAddress', key: 'registeredAddress', width: 30 },
+                { header: 'rcity', key: 'rcity', width: 30 },
+                { header: 'rpinCode', key: 'rpinCode', width: 30 },
+                { header: 'rstate', key: 'rstate', width: 30 },
+                { header: 'website', key: 'website', width: 30 },
+                { header: 'materialDescription', key: 'materialDescription', width: 30 },
+                { header: 'serviceDescription', key: 'serviceDescription', width: 30 },
+                { header: 'contactPersonName', key: 'contactPersonName', width: 30 },
+                { header: 'mobileNo', key: 'mobileNo', width: 30 },
+                { header: 'landlineNo', key: 'landlineNo', width: 30 },
+                { header: 'faxNo', key: 'faxNo', width: 30 },
+                { header: 'emailId', key: 'emailId', width: 30 },
+                { header: 'bankName', key: 'bankName', width: 30 },
+                { header: 'nameOfBank', key: 'nameOfBank', width: 30 },
+                { header: 'bankBranch', key: 'bankBranch', width: 30 },
+                { header: 'accountNumber', key: 'accountNumber', width: 30 },
+                { header: 'ifscCode', key: 'ifscCode', width: 30 },
+                { header: 'gstPercentage', key: 'gstPercentage', width: 30 },
+                { header: 'tdsPercentage', key: 'tdsPercentage', width: 30 },
+                { header: 'gstNo', key: 'gstNo', width: 30 },
+                { header: 'stateCode', key: 'stateCode', width: 30 },
+                { header: 'hsnCode', key: 'hsnCode', width: 30 },
+                { header: 'panNo', key: 'panNo', width: 30 },
+                { header: 'msmed', key: 'msmed', width: 30 },
+                { header: 'personName', key: 'personName', width: 30 },
+                { header: 'designation', key: 'designation', width: 30 }
+            ];
+
+            // Add Array Rows
+            worksheet.addRows(jsonvendors);
+
+            // Write to File
+            workbook.xlsx.writeFile("vendors.xlsx")
+                .then(function () {
+                    console.log("file saved!");
+                });
+        });
+        res.redirect('back');
+    });
+
+    // upload multiple accounts extra files
+    var cpUpload2 = upload.fields([{ name: 'uploaded', maxCount: 10 }])
+    app.post('/venNet/upload', cpUpload2, function (req, res) {
+        if (req.files['uploaded']) {
+            console.log(req.body);
+            for (var i = 0; i < req.files['uploaded'].length; i++) {
+                var fileName = req.files['uploaded'][i].filename;
+                console.log("file Uplaoded" + fileName);
+                var filePath = './uploads/' + fileName;
+                var workbook = xlsx.readFile(filePath);
+                var workSheet = workbook.Sheets[workbook.SheetNames[0]];
+                console.log(workSheet.C14.v);
+                var address = undefined(workSheet.C19) + undefined(workSheet.C20);
+                console.log(address);
+                console.log(address.length);
+                var no = undefined(workSheet.C33);
+                console.log(no);
+                var insertVendorQuery = "INSERT INTO `vendors`(`organizationType`, `vendorName`, `officeAddress`, `ocity`, `opinCode`, `ostate`, `registeredAddress`, `rcity`, `rpinCode`, `rstate`, `website`, `materialDescription`, `serviceDescription`, `contactPersonName`, `mobileNo`, `landlineNo`, `faxNo`, `emailId`, `bankName`, `nameOfBank`, `bankBranch`, `accountNumber`, `ifscCode`, `gstPercentage`, `tdsPercentage`, `gstNo`, `stateCode`, `hsnCode`, `panNo`, `msmed`, `personName`, `designation`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                con.query(insertVendorQuery, [undefined(workSheet.C14), undefined(workSheet.C16), address, undefined(workSheet.C21), undefined(workSheet.C22), undefined(workSheet.C23), address, undefined(workSheet.C21), undefined(workSheet.C22), undefined(workSheet.C23), undefined(workSheet.C24), undefined(workSheet.C26), undefined(workSheet.C28), undefined(workSheet.C31), undefined(workSheet.C32), undefined(workSheet.C33), undefined(workSheet.C34), undefined(workSheet.C35), undefined(workSheet.C38), undefined(workSheet.C39), undefined(workSheet.C40), undefined(workSheet.C41), undefined(workSheet.C42), undefined(workSheet.C46), undefined(workSheet.C47), undefined(workSheet.C50), undefined(workSheet.C51), undefined(workSheet.C52), undefined(workSheet.C53), undefined(workSheet.C54), undefined(workSheet.C62), undefined(workSheet.C63)], function (err, result, fields) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                    }
+                });
+                function undefined(a) {
+                    if (typeof a === "undefined") {
+                        return null;
+                    }
+                    else {
+                        return a.v;
+                    }
+                }
+                fs.unlink(filePath, function (err) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log("File was deleted");
+                    }
+                });
+            }
+        }
+        res.redirect('back');
+    });
+
     // create a new vendor
     var cpUpload = upload.fields([{ name: 'cancelledCheque', maxCount: 1 }, { name: 'vendorRoundStamp', maxCount: 1 }, { name: 'accountsFiles', maxCount: 10 }])
     app.post('/venNet', notDesiger, cpUpload, function (req, res) {
@@ -483,7 +593,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show a vendor
-    app.get('/venNet/:id', notDesiger, function (req, res) {
+    app.get('/venNet/show/:id', notDesiger, function (req, res) {
         var sql = "SELECT * FROM `vendors` WHERE id =?";
         con.query(sql, [req.params.id], function (err, result, fields) {
             res.render('./vendor', {

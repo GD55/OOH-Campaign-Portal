@@ -221,7 +221,7 @@ function vendorSearch() {
         heading = "<tr><th>vendors</th><th>id</th><th>city</th><th>vendor Name</th><th>organization type</th><th>contact Person Name</th></tr>";
         $("#append").append(heading);
         data.forEach(function (vendor) {
-            var newVendor = "<tr><td><a class='btn btn-xs btn-info ' href='/venNet/" + vendor.id + "'>View More</a></td><td>" + vendor.id + " </td><td> " + vendor.ocity + " </td><td> " + vendor.vendorName + " </td><td> " + vendor.organizationType + " </td><td> " + vendor.contactPersonName + "</td></tr>";
+            var newVendor = "<tr><td><a class='btn btn-xs btn-info ' href='/venNet/show/" + vendor.id + "'>View More</a></td><td>" + vendor.id + " </td><td> " + vendor.ocity + " </td><td> " + vendor.vendorName + " </td><td> " + vendor.organizationType + " </td><td> " + vendor.contactPersonName + "</td></tr>";
             $("#append").append(newVendor);
         });
     });

@@ -1,0 +1,21 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="col-sm-8 mx-auto">
+        <h1 class="text-center"><i class="fas fa-sign-in-alt"></i> New Vendor</h1>
+    </div>
+    <form action="/venNet/upload" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="">Uplaod .xlsx file for venNet</label>
+            <input type="file" class="form-control-file" id="accounts" name="uploaded" multiple
+                accept=".xlsx">
+            <small class="form-text text-muted">
+                *You can upload multiple image/files placed in a location locally by selecting
+                multiple images while holding ctrl key.
+            </small><br>
+        </div>
+        <div class="text-center">
+            <input type="submit" id="submitButton" class=" btn btn-outline-dark btn-lg my-3">
+        </div>
+    </form>
+</div>
+<% include ./partials/footer %>
