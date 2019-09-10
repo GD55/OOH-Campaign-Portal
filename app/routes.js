@@ -461,7 +461,7 @@ module.exports = function (app, passport, con, upload) {
             worksheet.addRows(jsonvendors);
 
             // Write to File
-            workbook.xlsx.writeFile("vendors.xlsx")
+            workbook.xlsx.writeFile("./uploads/vendors.xlsx")
                 .then(function () {
                     console.log("file saved!");
                 });
