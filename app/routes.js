@@ -517,7 +517,7 @@ module.exports = function (app, passport, con, upload) {
     var cpUpload = upload.fields([{ name: 'cancelledCheque', maxCount: 1 }, { name: 'vendorRoundStamp', maxCount: 1 }, { name: 'accountsFiles', maxCount: 10 }])
     app.post('/venNet', notDesiger, cpUpload, function (req, res) {
         var insertVendorQuery = "INSERT INTO `vendors`(`organizationType`, `vendorName`, `officeAddress`, `ocity`, `opinCode`, `ostate`, `registeredAddress`, `rcity`, `rpinCode`, `rstate`, `website`, `materialDescription`, `serviceDescription`, `contactPersonName`, `mobileNo`, `landlineNo`, `faxNo`, `emailId`, `bankName`, `nameOfBank`, `bankBranch`, `accountNumber`, `ifscCode`, `gstPercentage`, `tdsPercentage`, `gstNo`, `stateCode`, `hsnCode`, `panNo`, `msmed`, `personName`, `designation`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        con.query(insertVendorQuery, [req.body.organizationType, req.body.vendorName, req.body.officeAddress, req.body.ocity, req.body.opinCode, req.body.ostate, req.body.registeredAddress, req.body.rcity, req.body.rpinCode, req.body.rstate, req.body.website, req.body.materialDescription, req.body.serviceDescription, req.body.contactPersonName, req.body.mobileNo, req.body.landlineNo, req.body.faxNo, req.body.emailId, req.body.bankName, req.body.nameOfBank, req.body.bankBranch, req.body.accountNumber, req.body.ifscCode, req.body.gstPercentage, req.body.tdsPercentage, req.body.gstNo, req.body.stateCode, req.body.hsnCode, req.body.panNo, req.body.msmed, req.body.personName, req.body.designation], function (err, result, fields) {
+        con.query(insertVendorQuery, [undefined(req.body.organizationType), undefined(req.body.vendorName), undefined(req.body.officeAddress), undefined(req.body.ocity), undefined(req.body.opinCode), undefined(req.body.ostate), undefined(req.body.registeredAddress), undefined(req.body.rcity), undefined(req.body.rpinCode), undefined(req.body.rstate), undefined(req.body.website), undefined(req.body.materialDescription), undefined(req.body.serviceDescription), undefined(req.body.contactPersonName), undefined(req.body.mobileNo), undefined(req.body.landlineNo), undefined(req.body.faxNo), undefined(req.body.emailId), undefined(req.body.bankName), undefined(req.body.nameOfBank), undefined(req.body.bankBranch), undefined(req.body.accountNumber), undefined(req.body.ifscCode), undefined(req.body.gstPercentage), undefined(req.body.tdsPercentage), undefined(req.body.gstNo), undefined(req.body.stateCode), undefined(req.body.hsnCode), undefined(req.body.panNo), undefined(req.body.msmed), undefined(req.body.personName), undefined(req.body.designation)], function (err, result, fields) {
             var vendorId = result.insertId;
             if (req.files['cancelledCheque']) {
                 var field = 'cancelledCheque';
@@ -538,6 +538,14 @@ module.exports = function (app, passport, con, upload) {
             }
             res.redirect('/venNet');
         });
+        function undefined(a) {
+            if (typeof a === "undefined") {
+                return null;
+            }
+            else {
+                return a;
+            }
+        }
     });
 
     // upload multiple accounts extra files
