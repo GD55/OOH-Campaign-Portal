@@ -587,13 +587,15 @@ module.exports = function (app, passport, con, upload) {
                 console.log(err);
             } else {
                 var filePath = result[0][field];
-                fs.unlink(filePath, function (err) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log("File was deleted");
-                    }
-                });
+                if (filePath) {
+                    fs.unlink(filePath, function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("File was deleted");
+                        }
+                    });
+                }
             }
         });
         updateVendor(field, value, vendorId);

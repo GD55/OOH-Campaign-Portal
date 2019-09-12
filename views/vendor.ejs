@@ -337,7 +337,7 @@
         </tr>
         <tr class="download">
             <th>Vendor Round Stamp</th>
-            <td><% if(vendor['cancelledCheque']){%><span
+            <td><% if(vendor['vendorRoundStamp']){%><span
                     id="<%='vendorRoundStamp'%>"><%= vendor['vendorRoundStamp'].substring(22).split('.').slice(0, -1).join('.') %></span>
                 <%}%>
                 <% if(vendor.vendorRoundStamp){ %>
