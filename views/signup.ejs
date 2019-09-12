@@ -12,7 +12,7 @@
         </div>
         <% } %>
 
-        <!-- LOGIN FORM -->
+        <!-- SIGN UP FORM -->
         <form action="/signup" method="post">
             <div class="form-group">
                 <label>Username</label>
@@ -24,7 +24,14 @@
             </div>
             <div class="form-group">
                 <label>Designation</label>
-                <input type="text" class="form-control" name="designation" required>
+                <select class="form-control" name="designation" required>
+                    <option value="">Select Designation</option>
+                    <option value="admin">Admin</option>
+                    <option value="Coordinator">Coordinator</option>
+                    <option value="Alliance">Alliance</option>
+                    <option value="Designer">Designer</option>
+                    <option value="Accountant">Accountant</option>
+                </select>
             </div>
             <div class="form-group">
                 <label>Office Id</label>
@@ -32,7 +39,7 @@
             </div>
             <div class="form-group">
                 <label>Phone no.</label>
-                <input type="number" class="form-control" name="number" required>
+                <input type="number" min="1000000000" max="9999999999" class="form-control" name="number" required>
             </div>
             <div class="form-group">
                 <label>Email</label>
