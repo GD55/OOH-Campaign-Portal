@@ -164,7 +164,7 @@ module.exports = function (app, passport, con, upload) {
     // =====================================
 
     // home Page
-    app.get('/', function (req, res) {
+    app.get('/', isLoggedIn, function (req, res) {
         res.render('index', {
             currentUser: req.user,
             message: req.flash('indexMessage')
@@ -240,7 +240,7 @@ module.exports = function (app, passport, con, upload) {
     // log the user out
     app.get('/logout', function (req, res) {
         req.logout();
-        res.redirect('/');
+        res.redirect('/login');
     });
 
     // =====================================
@@ -399,7 +399,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show new vendor page
-    app.get('/venNet/new', notDesiger, function (req, res) {
+    app.get('/venNet/new', function (req, res) {
         res.render('newVendor', {
             currentUser: req.user,
         });
@@ -515,10 +515,26 @@ module.exports = function (app, passport, con, upload) {
 
     // create a new vendor
     var cpUpload = upload.fields([{ name: 'cancelledCheque', maxCount: 1 }, { name: 'vendorRoundStamp', maxCount: 1 }, { name: 'accountsFiles', maxCount: 10 }])
-    app.post('/venNet', notDesiger, cpUpload, function (req, res) {
+    app.post('/venNet', cpUpload, function (req, res) {
+        var ServiceType;
+        if (req.body.serviceDescription == "Others") {
+            ServiceType = req.body.other;
+        } else {
+            ServiceType = req.body.serviceDescription;
+        }
         var insertVendorQuery = "INSERT INTO `vendors`(`organizationType`, `vendorName`, `officeAddress`, `ocity`, `opinCode`, `ostate`, `registeredAddress`, `rcity`, `rpinCode`, `rstate`, `website`, `materialDescription`, `serviceDescription`, `contactPersonName`, `mobileNo`, `landlineNo`, `faxNo`, `emailId`, `bankName`, `nameOfBank`, `bankBranch`, `accountNumber`, `ifscCode`, `gstPercentage`, `tdsPercentage`, `gstNo`, `stateCode`, `hsnCode`, `panNo`, `msmed`, `personName`, `designation`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        con.query(insertVendorQuery, [undefined(req.body.organizationType), undefined(req.body.vendorName), undefined(req.body.officeAddress), undefined(req.body.ocity), undefined(req.body.opinCode), undefined(req.body.ostate), undefined(req.body.registeredAddress), undefined(req.body.rcity), undefined(req.body.rpinCode), undefined(req.body.rstate), undefined(req.body.website), undefined(req.body.materialDescription), undefined(req.body.serviceDescription), undefined(req.body.contactPersonName), undefined(req.body.mobileNo), undefined(req.body.landlineNo), undefined(req.body.faxNo), undefined(req.body.emailId), undefined(req.body.bankName), undefined(req.body.nameOfBank), undefined(req.body.bankBranch), undefined(req.body.accountNumber), undefined(req.body.ifscCode), undefined(req.body.gstPercentage), undefined(req.body.tdsPercentage), undefined(req.body.gstNo), undefined(req.body.stateCode), undefined(req.body.hsnCode), undefined(req.body.panNo), undefined(req.body.msmed), undefined(req.body.personName), undefined(req.body.designation)], function (err, result, fields) {
+        con.query(insertVendorQuery, [undefined(req.body.organizationType), undefined(req.body.vendorName), undefined(req.body.officeAddress), undefined(req.body.ocity), undefined(req.body.opinCode), undefined(req.body.ostate), undefined(req.body.registeredAddress), undefined(req.body.rcity), undefined(req.body.rpinCode), undefined(req.body.rstate), undefined(req.body.website), undefined(req.body.materialDescription), undefined(ServiceType), undefined(req.body.contactPersonName), undefined(req.body.mobileNo), undefined(req.body.landlineNo), undefined(req.body.faxNo), undefined(req.body.emailId), undefined(req.body.bankName), undefined(req.body.nameOfBank), undefined(req.body.bankBranch), undefined(req.body.accountNumber), undefined(req.body.ifscCode), undefined(req.body.gstPercentage), undefined(req.body.tdsPercentage), undefined(req.body.gstNo), undefined(req.body.stateCode), undefined(req.body.hsnCode), undefined(req.body.panNo), undefined(req.body.msmed), undefined(req.body.personName), undefined(req.body.designation)], function (err, result, fields) {
             var vendorId = result.insertId;
+            var noofmedia = req.body.noofmedia;
+            console.log(noofmedia);
+            for (var i = 0; i <= noofmedia; i++) {
+                console.log(req.body['mediaoption' + i]);
+                var insertMediaQuery = "INSERT INTO `media`(`mediaoption`, `city`, `contactperson`, `contactdetail`, `vendorid`) VALUES (?,?,?,?,?)"
+                if (req.body['mediaoption' + i]) {
+                    con.query(insertMediaQuery, [undefined(req.body['mediaoption' + i]), undefined(req.body['city' + i]), undefined(req.body['contactperson' + i]), undefined(req.body['contactdetail' + i]), vendorId], function (err, result, fields) {
+                    });
+                }
+            }
             if (req.files['cancelledCheque']) {
                 var field = 'cancelledCheque';
                 var value = req.files['cancelledCheque'][0].filename;
@@ -882,9 +898,9 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     } else {
-        req.flash('indexMessage', 'You need to log in first');
+        req.flash('loginMessage', 'You need to log in first');
         // if they aren't redirect them to the home page
-        res.redirect('/');
+        res.redirect('/login');
     }
 }
 
@@ -901,9 +917,9 @@ function isAdmin(req, res, next) {
             res.redirect('/');
         }
     } else {
-        req.flash('indexMessage', 'You need to log in first');
+        req.flash('loginMessage', 'You need to log in first');
         // if they aren't redirect them to the home page
-        res.redirect('/');
+        res.redirect('/login');
     }
 }
 
@@ -920,8 +936,8 @@ function notDesiger(req, res, next) {
             res.redirect('/');
         }
     } else {
-        req.flash('indexMessage', 'You need to log in first');
+        req.flash('loginMessage', 'You need to log in first');
         // if they aren't redirect them to the home page
-        res.redirect('/');
+        res.redirect('/login');
     }
 }

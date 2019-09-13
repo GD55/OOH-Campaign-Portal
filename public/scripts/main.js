@@ -352,7 +352,7 @@ function copyNewPpt() {
         alert("fill the name field")
         return false;
     }
-    else{
+    else {
         destination = Date.now() + '-' + destination + ".pptx";
         $.ajax({
             method: 'GET',
@@ -409,7 +409,7 @@ function executePython() {
         var destination = copyNewExcel();
         var data = { destination: destination, template: $("input[name='template']:checked").val(), type: tool }
     }
-    else{
+    else {
         var destination = copyNewPpt();
         var data = { destination: destination, type: tool }
     }
@@ -427,4 +427,30 @@ function executePython() {
             }
         });
     }
+}
+
+function checkOption(v) {
+    if (v == 'Others') {
+        $("#OtherService").removeClass('d-none');
+    }
+    else {
+        $("#OtherService").addClass('d-none');
+    }
+}
+
+var noOfMedia = 0;
+function addMedia() {
+    if ($('#mediaoption' + noOfMedia).val() == "") {
+        alert("Fill up previous media option before adding next one");
+    } else {
+        $('<div class="form-row" id="mediano' + (noOfMedia + 1) + '"><div class="form-row col-md-11"><div class="form-group col-md-3"><label>Media Option</label><input type="text" class="form-control" name="mediaoption' + (noOfMedia + 1) + '" id="mediaoption' + (noOfMedia + 1) + '"></div><div class="form-group col-md-3"><label>City</label><input type="text" class="form-control" name="city' + (noOfMedia + 1) + '"></div><div class="form-group col-md-3"><label>Contact Person</label><input type="text" class="form-control" name="contactperson' + (noOfMedia + 1) + '"></div><div class="form-group col-md-3"><label>Contact Detail</label><input type="text" class="form-control" name="contactdetail' + (noOfMedia + 1) + '"></div></div><div class="col-md-1 mt-2"><h2 class="text-center mt-4" onclick="deleteMedia(' + (noOfMedia + 1) + ')"><i class="fas fa-trash-alt"></i></h2></div></div>').insertAfter("#mediano" + noOfMedia);
+        noOfMedia = noOfMedia + 1;
+        $('#noofmedia').val(noOfMedia);
+    }
+}
+
+function deleteMedia(n) {
+    $('#mediano' + n).remove();
+    noOfMedia = noOfMedia - 1;
+    $('#noofmedia').val(noOfMedia);
 }

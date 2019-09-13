@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 
 <div class="container">
-    <div class="col-sm-8 mx-auto">
+    <div class="col-sm-10 mx-auto">
 
         <h1 class="text-center"><i class="fas fa-sign-in-alt"></i> New Vendor</h1>
 
@@ -10,27 +10,27 @@
             <div class="border border-dark p-3">
                 <div class="form-group">
                     <label>Type Of Organization</label>
-                    <input type="text" class="form-control" name="organizationType">
+                    <input type="text" class="form-control" name="organizationType" required>
                 </div>
             </div>
             <div class="border border-dark p-3">
                 <div class="form-group">
                     <label>Name of Vendor(Billing Name)</label>
-                    <input type="text" class="form-control" name="vendorName">
+                    <input type="text" class="form-control" name="vendorName" required>
                 </div>
             </div>
             <div class="border border-dark p-3">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Contact Address</label>
-                            <textarea class="form-control" rows="5" name="officeAddress"></textarea>
+                            <label>Coorporate Address</label>
+                            <textarea class="form-control" rows="5" name="officeAddress" required></textarea>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label>City</label>
-                                <input type="text" class="form-control" name="ocity">
+                                <input type="text" class="form-control" name="ocity" required>
                             </div>
                             <div class="form-group col-md-6 ">
                                 <label>Pin Code</label>
@@ -39,7 +39,7 @@
                         </div>
                         <div class="form-group">
                             <label>State</label>
-                            <input type="text" class="form-control" name="ostate">
+                            <input type="text" class="form-control" name="ostate" required>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -73,50 +73,84 @@
             </div>
             <div class="border border-dark p-3">
                 <div class="form-group">
-                    <label>Material Description</label>
+                    <label>Service Type</label>
+                    <select class="form-control" name="serviceDescription" onchange="checkOption(this.value);" required>
+                        <option value="">Select Options</option>
+                        <option>Media Owner</option>
+                        <option>Media Agency</option>
+                        <option>Media Planning</option>
+                        <option>Media Buying</option>
+                        <option>Printing Services</option>
+                        <option>Fabrication Services</option>
+                        <option>Mounting Services</option>
+                        <option>Others</option>
+                    </select>
+                    <input type="text" class="form-control d-none mt-3" name="other" id="OtherService">
+                </div>
+            </div>
+            <div class="border border-dark p-3">
+                <div class="form-group">
+                    <label>Presence</label>
                     <input type="text" class="form-control" name="materialDescription">
                 </div>
             </div>
+            <input type="text" class="d-none form-control" id="noofmedia" name="noofmedia" value="0">
             <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>Services Description</label>
-                    <input type="text" class="form-control" name="serviceDescription">
+                <div class="form-row" id="mediano0">
+                    <div class="form-row col-md-11">
+                        <div class="form-group col-md-3">
+                            <label>Media Option</label>
+                            <input type="text" class="form-control" name="mediaoption0" id="mediaoption0">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>City</label>
+                            <input type="text" class="form-control" name="city0">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Contact Person</label>
+                            <input type="text" class="form-control" name="contactperson0">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Contact Detail</label>
+                            <input type="text" class="form-control" name="contactdetail0">
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <h2 class="text-center" onclick="addMedia()"><i class="fas fa-plus-square"></i></h2>
+                        <small>Add Media</small>
+                    </div>
                 </div>
             </div>
             <div class="border border-dark p-3">
                 <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label>Contact Person Name</label>
-                        <input type="text" class="form-control" name="contactPersonName">
+                    <div class="form-group col-md-6">
+                        <label>Concerned Person(Media Related)</label>
+                        <input type="text" class="form-control" name="contactPersonName" required>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
                         <label>Mobile No.</label>
-                        <input type="number" class="form-control" name="mobileNo">
+                        <input type="number" class="form-control" name="mobileNo" required>
                     </div>
-                    <div class="form-group col-md-4">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
                         <label>Landline No.</label>
                         <input type="number" class="form-control" name="landlineNo">
                     </div>
-                </div>
-                <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Fax No.</label>
-                        <input type="text" class="form-control" name="faxNo">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Email Id</label>
-                        <input type="email" class="form-control" name="emailId">
+                        <label>Email Address</label>
+                        <input type="email" class="form-control" name="emailId" required>
                     </div>
                 </div>
             </div>
             <div class="border border-dark p-3">
                 <div class="form-group">
-                    <label>Name in which the cheque to be issued (Bank Name)</label>
+                    <label>A/C Name</label>
                     <input type="text" class="form-control" name="bankName">
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Name Of Bank</label>
+                        <label>Bank Name</label>
                         <input type="text" class="form-control" name="nameOfBank">
                     </div>
                     <div class="form-group col-md-6">
@@ -147,7 +181,7 @@
                         <input type="number" class="form-control" name="gstPercentage">
                     </div>
                     <div class="form-group col-md-6">
-                        <label>TDS Rate(%)</label>
+                        <label>TDS(%)</label>
                         <input type="number" class="form-control" name="tdsPercentage">
                     </div>
                 </div>
@@ -191,12 +225,12 @@
             <div class="border border-dark p-3">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label>Name of Person(Authorised Signatory)</label>
-                        <input type="text" class="form-control" name="personName">
+                        <label>Contact Person(Authorised Signatory)</label>
+                        <input type="text" class="form-control" name="personName" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Designation</label>
-                        <input type="text" class="form-control" name="designation">
+                        <input type="text" class="form-control" name="designation" required>
                     </div>
                 </div>
                 <div class="form-group">

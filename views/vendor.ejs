@@ -16,11 +16,17 @@
         </tr>
         <tr>
             <th>Organization Type</th>
-            <td><%= vendor.organizationType %></td>
+            <td class="admin">
+                <input class="text-center bg-transparent border-none" type="text" name="organizationType"
+                    value="<%= vendor.organizationType %>" onchange="updateVendor(this.value, this.name)" disabled>
+            </td>
         </tr>
         <tr>
             <th>Vendor Name</th>
-            <td><%= vendor.vendorName %></td>
+            <td class="admin">
+                <input class="text-center bg-transparent border-none" type="text" name="vendorName"
+                    value="<%= vendor.vendorName %>" onchange="updateVendor(this.value, this.name)" disabled>
+            </td>
         </tr>
         <tr>
             <th>Contact Address</th>
