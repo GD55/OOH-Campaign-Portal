@@ -4,6 +4,7 @@ var currentUserId;
 var vendorId;
 var y = [];
 var tool = "";
+var currentPage;
 
 $(document).ready(function () {
     if (window.location.pathname == '/tools/excel' || window.location.pathname == '/tools/ppt') {
@@ -56,10 +57,16 @@ $(document).ready(function () {
     if (window.location.pathname == '/campaign') {
         adjustColumnSize();
         desig = $("#designation").text();
+        currentPage = desig;
         currentUserId = $("#userId").text();
         max = $("#max").text();
         $(".firstRow").removeClass('d-none');
-        changeHidden(desig);
+        if (desig == "alliance") {
+            t = "admin";
+        } else {
+            t = desig;
+        }
+        changeHidden(t);
         var x = $(".scrollT").position();
         $('.scrollL').each(function (index) {
             y[index] = $(this).position();
@@ -147,8 +154,10 @@ function clearBrands() {
 function edit(id, desig) {
     currentEditId = id;
     disableAllInputs();
-    if (desig == "admin") {
+    if (desig == "admin" || desig == "coordinator") {
         $("tr.newVendor").removeClass('d-none').removeClass("border-none");
+        $("." + id).find('tr.admin').removeClass('d-none').children().addClass("border-none");
+        $(".selectVendor").prop("disabled", false).removeClass("border-none");
         replaceWithButton();
     }
     if (desig == "coordinator") {
@@ -157,8 +166,6 @@ function edit(id, desig) {
         }
     } else {
         $("." + id).find("." + desig).children().prop("disabled", false).removeClass("border-none");
-        $("." + id).find('tr.' + desig).removeClass('d-none').children().addClass("border-none");
-        $(".selectVendor").prop("disabled", false).removeClass("border-none");
     }
     adjustColumnSize();
 }
@@ -195,10 +202,11 @@ function changeHidden(t) {
         $(".firstRow").addClass('d-none');
     }
     hideAll();
-    $("#pageHeading").text(t.charAt(0).toUpperCase() + t.slice(1) + " Page");
     $('#' + t + "Head").addClass('activePage');
     $('td.' + t).removeClass('d-none');
+    $('span.' + t).removeClass('d-none');
     $('th.' + t).removeClass('d-none');
+    currentPage = t;
     adjustColumnSize();
 }
 
@@ -210,18 +218,20 @@ function hideAll() {
     $('.coordinator').addClass('d-none');
     $('.designer').addClass('d-none');
     $('.accountant').addClass('d-none');
+    $('span.admin').addClass('d-none');
     $('tr.admin').addClass('d-none');
     $("tr.newVendor").addClass('d-none').addClass("border-none");
+    $(".all").removeClass('d-none');
 }
 
 function vendorSearch() {
     var searchText = $('#vendorSearch').val();
     clearvendor();
     $.getJSON("/api/vendor/" + $("input[name='searchBy']:checked").val() + "/" + searchText, function (data) {
-        heading = "<tr><th>vendors</th><th>id</th><th>city</th><th>vendor Name</th><th>organization type</th><th>contact Person Name</th></tr>";
+        heading = "<tr><th>Id</th><th>City</th><th>Vendor Name</th><th>Contact Person</th><th>Mobile No.</th></tr>";
         $("#append").append(heading);
         data.forEach(function (vendor) {
-            var newVendor = "<tr><td><a class='btn btn-xs btn-info ' href='/venNet/show/" + vendor.id + "'>View More</a></td><td>" + vendor.id + " </td><td> " + vendor.ocity + " </td><td> " + vendor.vendorName + " </td><td> " + vendor.organizationType + " </td><td> " + vendor.contactPersonName + "</td></tr>";
+            var newVendor = "<tr><td>" + vendor.id + " </td><td> " + vendor.ocity + " </td><td> <a class='' target='_blank' href='/venNet/show/" + vendor.id + "'><strong>" + vendor.vendorName + "</strong></a> </td><td> " + vendor.contactPersonName + "</td><td> " + vendor.mobileNo + " </td></tr>";
             $("#append").append(newVendor);
         });
     });
@@ -242,6 +252,7 @@ function vendorEdit(id) {
     $("input").prop("disabled", false).removeClass("border-none");
     $(".download").addClass("d-none");
     $(".upload").removeClass("d-none");
+    $("#editButton").addClass('w-100');
     vendorId = id;
 }
 
@@ -254,21 +265,24 @@ function updateVendor(v, name) {
     });
 }
 
-function repOptions() {
+function repOptions(id) {
     $(".replace").addClass("d-none");
     $(".backInitial").removeClass("d-none");
+    console.log($("#addNewVendor" + id).width());
+    $("#addNewVendor" + id).width($("#overhead" + id).width());
 }
 
 function assignVendor(camapignId, desig) {
-    if (desig == "admin") {
+    if (desig == "admin" || desig == "coordinator") {
         var vendorId = $("." + camapignId).find(".selectVendor").children("option:selected").val();
         var vendorName = $("." + camapignId).find(".selectVendor").children("option:selected").text().split(",", 1);
         $.getJSON('/api/assign/' + vendorId + "/" + camapignId, function (data) {
-            addVendorData(camapignId, vendorName);
+            location.reload();
         });
     }
 }
 
+// to be deleted
 function addVendorData(camapignId, vendorName) {
     if ($("." + camapignId).find(".emptyVendor").first().html()) {
         $("." + camapignId).find(".emptyVendor").first().html(vendorName).removeClass("emptyVendor");
@@ -280,12 +294,14 @@ function addVendorData(camapignId, vendorName) {
     }
 }
 
+// to be deleted
 function appendNewVendor() {
     console.log("appending New Vendor");
-    var newHeading = '<tr><th class="emptyVendor accountant coordinator admin">vendor' + (max) + '</th></tr>';
+    var newHeading = '<tr><th class="emptyVendor accountant coordinator admin">Vendor Name</th></tr>';
     $(".newVendor").before(newHeading);
     var blankVendor = '<tr><td class="emptyVendor emptyVendor accountant coordinator admin"> </td></tr>';
     $(".addNewVendor").before(blankVendor);
+
 }
 
 function updateAssignment(v, name, assignmentId) {
@@ -453,4 +469,28 @@ function deleteMedia(n) {
     $('#mediano' + n).remove();
     noOfMedia = noOfMedia - 1;
     $('#noofmedia').val(noOfMedia);
+}
+
+function vendordata(d) {
+    if (d == "vendor") {
+        $('.vendorTable').removeClass('d-none');
+        $('.mediaTable').addClass('d-none');
+        $('#vendorButton').addClass('activeLeftTab');
+        $('#mediaButton').removeClass('activeLeftTab');
+    } else {
+        $('.vendorTable').addClass('d-none');
+        $('.mediaTable').removeClass('d-none');
+        $('#vendorButton').removeClass('activeLeftTab');
+        $('#mediaButton').addClass('activeLeftTab');
+    }
+}
+
+function dispspan(v) {
+    $('span.' + v).removeClass('d-none');
+}
+
+function hidespan(v) {
+    if (v != currentPage) {
+        $('span.' + v).addClass('d-none');
+    }
 }

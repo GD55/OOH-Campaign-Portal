@@ -1,34 +1,63 @@
 <% include ./partials/header %>
 
-<div class="container">
+<div class="indexcontain">
     <!-- show any messages that come back with authentication -->
     <% if (message.length > 0) { %>
-    <div class="alert alert-danger">
+    <div class="alert translucentBox text-center">
         <%= message %>
     </div>
     <% } %>
-    <div class="jumbotron text-center">
-        <h1><span class="fa fa-lock"></span> Office Authentication</h1>
-
-        <p>Login or Register with:</p>
-
-        <a href="/login" class="btn btn-primary"><span class="fa fa-user"></span> Login</a>
-        <% if(currentUser){ %>
-        <% if(currentUser.designation == "admin"){ %>
-        <a href="/signup" class="btn btn-primary"><span class="fa fa-user"></span> Signup</a>
-        <% } %>
-        <% } %>
-    </div>
-    <div class="text-center">
-        <% if(currentUser){ %>
-        <a href="/campaign" class="btn btn-success btn-lg btn-block"> Campaign Tracker</a>
-        <a href="/venNet" class="btn btn-primary btn-lg btn-block"> Ven-net</a>
-        <div class="row m-2">
-            <a href="/tools/excel" class="col-md-5 btn btn-info btn-lg">Excel Tool</a>
-            <span class="col-md-2"></span>
-            <a href="/tools/ppt" class="col-md-5 btn btn-info btn-lg">Ppt Tool</a>
+    <div class="d-flex align-items-center">
+        <div class="col-md-4 authBox">
+            <div class="translucentBox text-center">
+                <h5 class="bg-black py-2"><strong>OOH CAMPAIGN PORTAL</strong></h5>
+                <div class="pb-5 pt-2">
+                    <p>Sign-in/Sign-up</p>
+                    <a href="/login" class="btn goldenYellow indexbtn"><span class="fa fa-user"></span><strong> LOGIN
+                        </strong></a>
+                    <% if(currentUser){ %>
+                    <% if(currentUser.designation == "admin"){ %>
+                    <a href="/signup" class="btn goldenYellow indexbtn"><span class="fa fa-user"></span><strong>
+                            REGISTER</strong></a>
+                    <% } %>
+                    <% } %>
+                </div>
+            </div>
         </div>
-        <% } %>
+        <div class="col-md-8" id="indexBox">
+            <div class="text-center d-flex h-100 translucentBox">
+                <% if(currentUser){ %>
+                <div class="d-flex flex-column justify-content-around w-100">
+                    <div class="border-black border-top-0 border-left-0 h-100 d-flex justify-content-around align-items-center">
+                        <div>
+                            <i class="d-block fas fa-map-marker-alt p-3 indexIcon"></i>
+                            <a href="/campaign" class="btn goldenYellow indexbtn"><strong>TRACK</strong></strong></a>
+                        </div>
+                    </div>
+                    <div class="border-black border-bottom-0 border-left-0  h-100 d-flex justify-content-around align-items-center">
+                        <div>
+                            <i class="d-block fas fa-file-excel p-3 indexIcon"></i>
+                            <a href="/tools/excel" class="btn goldenYellow indexbtn"><strong>EXCEL</strong></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-column w-100">
+                    <div class="border-black  border-top-0 border-right-0  h-100 d-flex justify-content-around align-items-center">
+                        <div>
+                            <i class="d-block fas fa-address-book p-3 indexIcon"></i>
+                            <a href="/venNet" class="btn goldenYellow indexbtn"><strong>VEN-NET</strong> </a>
+                        </div>
+                    </div>
+                    <div class="border-black border-bottom-0 border-right-0   h-100 d-flex justify-content-around align-items-center">
+                        <div>
+                            <i class="d-block fas fa-file-powerpoint p-3 indexIcon"></i>
+                            <a href="/tools/ppt" class="btn goldenYellow indexbtn"><strong>PRESENTATION</strong></a>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+        </div>
     </div>
 </div>
-<% include ./partials/footer %>
+<% include ./partials/footer2 %>

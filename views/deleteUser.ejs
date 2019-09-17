@@ -4,38 +4,48 @@
 <div class="container">
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> All Profile</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
     <div class="row">
         <% users.forEach(function(user){ %>
         <!-- LOCAL INFORMATION -->
-        <div class="col-sm-6">
-            <div class="card rounded-lg bg-light">
-                <div class="card-body">
-                    <h3><span class="fa fa-user"></span>Local</h3>
-                    <p>
-                        <strong>id</strong>:
-                        <%= user.id %><br>
-                        <strong>designation</strong>:
-                        <%= user.designation %><br>
-                        <strong>username</strong>:
-                        <%= user.name %><br>
-                        <strong>office id</strong>:
-                        <%= user.office_id %><br>
-                        <strong>email</strong>:
-                        <%= user.email %><br>
-                        <strong>phone no</strong>:
-                        <%= user.phone_no %>
-                    </p>
-                    <form id="delete" action="/deleteUser/<%= user.id%>?_method=DELETE" method="POST">
-                        <button class="btn btn-outline-danger" onclick="return confirm('Are you sure you want to Remove?');" <% if(currentUser.id == user.id){ %> disabled
-                            <% } %>>DELETE</button>
-                    </form>
+        <div class="col-sm-6 p-4">
+            <div class="card rounded-lg translucentBox">
+                <div class="card-body p-0">
+                    <h3 class="bg-black text-center py-2"> PROFILE</h3>
+                    <div class="p-3">
+                        <div class="d-flex">
+                            <div class="d-flex flex-column">
+                                <strong class="pr-3">Profile Id :</strong>
+                                <strong class="pr-3">Designation :</strong>
+                                <strong class="pr-3">User Name :</strong>
+                                <strong class="pr-3">Office Id :</strong>
+                                <strong class="pr-3">Email Address :</strong>
+                                <strong class="pr-3">Phone Number :</strong>
+                            </div>
+                            <div class="d-flex flex-column pl-4">
+                                <span class="pl-3"><%= user.id %></span>
+                                <span
+                                    class="pl-3"><%= user.designation.charAt(0).toUpperCase() + user.designation.slice(1) %></span>
+                                <span class="pl-3"><%= user.name.charAt(0).toUpperCase() + user.name.slice(1) %></span>
+                                <span class="pl-3"><%= user.office_id %></span>
+                                <span class="pl-3"><%= user.email %></span>
+                                <span class="pl-3"><%= user.phone_no %></span>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="text-center pt-3">
+                            <form id="delete" action="/deleteUser/<%= user.id%>?_method=DELETE" method="POST">
+                                <button class="btn goldenYellow"
+                                    onclick="return confirm('Are you sure you want to Remove?');"
+                                    <% if(currentUser.id == user.id){ %> disabled <% } %>>DELETE</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <% }); %>
     </div>
 </div>
-<% include ./partials/footer %>
+<% include ./partials/footer2 %>

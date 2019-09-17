@@ -1,16 +1,37 @@
 <% include ./partials/header %>
-<div class="Camapignshead position-fixed w-100 bg-white">
+<div class="Camapignshead position-fixed w-100 bg-black">
     <div class="page-header text-center">
-        <h1 id="pageHeading" class=""> Campaign Page</h1>
+        <h1 id="pageHeading" class="">CAMPAIGN TRACKER</h1>
     </div>
-    <div class="sheetTabs pl-5 ">
+    <div class="sheetTabs pl-5 pb-3">
         <span id="designation" class="d-none"><%= currentUser.designation %></span>
         <span id="userId" class="d-none"><%= currentUser.id %></span>
         <span id="max" class="d-none"><%= max %></span>
-        <button class="btn btn-primary" id="adminHead" onclick="changeHidden('admin')">Master Sheet</button>
-        <button class="btn btn-primary" id="coordinatorHead" onclick="changeHidden('coordinator')">Coordinator</button>
-        <button class="btn btn-primary" id="designerHead" onclick="changeHidden('designer')">Designer</button>
-        <button class="btn btn-primary" id="accountantHead" onclick="changeHidden('accountant')">Accounts</button>
+        <div class="d-flex justify-content-around">
+            <div class="d-flex flex-column text-center">
+                <a class="bigIcon" id="adminHead" onmouseover="dispspan('admin')" onmouseout="hidespan('admin')"
+                    onclick="changeHidden('admin')"><i class="fas fa-asterisk"></i></a>
+                <span class="admin d-none"> Master Sheet</span>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <a class="bigIcon" id="coordinatorHead" onmouseover="dispspan('coordinator')"
+                    onmouseout="hidespan('coordinator')" onclick="changeHidden('coordinator')"><i
+                        class="fas fa-globe"></i></a>
+                <span class="coordinator d-none"> Coordinator</span>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <a class="bigIcon" id="designerHead" onmouseover="dispspan('designer')"
+                    onmouseout="hidespan('designer')" onclick="changeHidden('designer')"><i
+                        class="fas fa-fill-drip"></i></a>
+                <span class="designer d-none"> Designer</span>
+            </div>
+            <div class="d-flex flex-column text-center">
+                <a class="bigIcon" id="accountantHead" onmouseover="dispspan('accountant')"
+                    onmouseout="hidespan('accountant')" onclick="changeHidden('accountant')"><i
+                        class="fas fa-file-invoice"></i></a>
+                <span class="accountant d-none"> Accounts</span>
+            </div>
+        </div>
     </div>
 </div>
 <%
@@ -22,21 +43,21 @@
                 minutes = ("0" + date.getMinutes()).slice(-2);
             return [ day,mnth,date.getFullYear() ].join("-")+" "+hours+":"+ minutes;
         }%>
-<div class="contain campaignTable">
-    <table class="mb-2" align="center">
+<div class="contain campaignTable translucentBox mx-0">
+    <table class="" align="center">
         <tbody>
             <tr>
                 <td class=" position-fixed Camapignshead bg-white">
                     <table class="fixedTableHeadings tab appendvendorHeading">
                         <% if(currentUser.designation){ %>
                         <tr class="firstRow d-none">
-                            <% if(currentUser.designation == 'admin'){ %>
+                            <% if(currentUser.designation == 'admin' || currentUser.designation == 'coordinator'){ %>
                             <th>
-                                <a class="btn btn-xs btn-info " href="/campaign/new"> Add
-                                    new Campaign</a>
+                                <a class="" href="/campaign/new"><i class="far fa-plus-square"></i><br> Add
+                                    new</a>
                             </th>
                             <% }else{ %>
-                            <th>Campaigns</th>
+                            <th class="tdIcon">Campaigns</th>
                             <% } %>
                         </tr>
                         <% } %>
@@ -53,7 +74,7 @@
                             <th>Client Name</th>
                         </tr>
                         <tr>
-                            <th>Brand Name</th>
+                            <th>Campaign Name</th>
                         </tr>
                         <tr>
                             <th>City/State</th>
@@ -62,7 +83,7 @@
                             <th>Media Format</th>
                         </tr>
                         <tr>
-                            <th>Project Handled By</th>
+                            <th>Handled By</th>
                         </tr>
                         <tr>
                             <th>Assigned To</th>
@@ -73,13 +94,13 @@
                     <table class="scrollingTableHeadings tab appendvendorHeading">
                         <% if(currentUser.designation){ %>
                         <tr class="firstRow d-none">
-                            <% if(currentUser.designation == 'admin'){ %>
+                            <% if(currentUser.designation == 'admin' || currentUser.designation == 'coordinator'){ %>
                             <th>
-                                <a class="btn btn-xs btn-info " href="/campaign/new"> Add
-                                    new Campaign</a>
+                                <a class="" href="/campaign/new"><i class="far fa-plus-square"></i><br> Add
+                                    new</a>
                             </th>
                             <% }else{ %>
-                            <th>Campaigns</th>
+                            <th class="tdIcon">Campaigns</th>
                             <% } %>
                         </tr>
                         <% } %>
@@ -96,7 +117,7 @@
                             <th>Client Name</th>
                         </tr>
                         <tr>
-                            <th>Brand Name</th>
+                            <th>Campaign Name</th>
                         </tr>
                         <tr>
                             <th>City/State</th>
@@ -105,7 +126,7 @@
                             <th>Media Format</th>
                         </tr>
                         <tr>
-                            <th>Project Handled By</th>
+                            <th>Handled By</th>
                         </tr>
                         <tr>
                             <th>Assigned To</th>
@@ -120,19 +141,19 @@
                             <th>Media Type</th>
                         </tr>
                         <tr>
-                            <th>No. of Units</th>
+                            <th class="coordinator admin">Quantity</th>
                         </tr>
                         <tr>
-                            <th>Duration</th>
+                            <th class="coordinator admin">Duration</th>
                         </tr>
                         <tr>
-                            <th>Campaign Start Date</th>
+                            <th class="coordinator admin">Start Date</th>
                         </tr>
                         <tr>
-                            <th>Campaign End Date</th>
+                            <th class="coordinator admin">End Date</th>
                         </tr>
                         <tr>
-                            <th>Campaign extension</th>
+                            <th class="coordinator admin">Extension</th>
                         </tr>
                         <tr>
                             <th class="coordinator d-none">PO from Client</th>
@@ -166,13 +187,16 @@
                         </tr>
                         <% for(var i=0; i<max; i++){ %>
                         <tr class="">
-                            <th class="accountant coordinator admin">vendor <%= i+1 %></th>
+                            <th class="accountant coordinator admin">Vendor Name</th>
                         </tr>
                         <tr class="">
-                            <th class="coordinator admin">Vendor Details</th>
+                            <th class="coordinator admin">Vendor Type</th>
                         </tr>
                         <tr class="">
-                            <th class="coordinator admin">No Of Units</th>
+                            <th class="coordinator admin">Quantity</th>
+                        </tr>
+                        <tr class="">
+                            <th class="coordinator admin">Vendor Status</th>
                         </tr>
                         <tr>
                             <th class="coordinator d-none">Installation Pictures</th>
@@ -211,13 +235,13 @@
                     <table class="w-200 tab appendvendorHeading">
                         <% if(currentUser.designation){ %>
                         <tr class="firstRow d-none">
-                            <% if(currentUser.designation == 'admin'){ %>
+                            <% if(currentUser.designation == 'admin' || currentUser.designation == 'coordinator'){ %>
                             <th>
-                                <a class="btn btn-xs btn-info " href="/campaign/new"> Add
-                                    new Campaign</a>
+                                <a class="" href="/campaign/new"><i class="far fa-plus-square"></i><br> Add
+                                    new</a>
                             </th>
                             <% }else{ %>
-                            <th>Campaigns</th>
+                            <th class="tdIcon">Campaigns</th>
                             <% } %>
                         </tr>
                         <% } %>
@@ -234,7 +258,7 @@
                             <th>Client Name</th>
                         </tr>
                         <tr>
-                            <th>Brand Name</th>
+                            <th>Campaign Name</th>
                         </tr>
                         <tr>
                             <th>City/State</th>
@@ -243,7 +267,7 @@
                             <th>Media Format</th>
                         </tr>
                         <tr>
-                            <th>Project Handled By</th>
+                            <th>Handled By</th>
                         </tr>
                         <tr>
                             <th>Assigned To</th>
@@ -258,19 +282,19 @@
                             <th>Media Type</th>
                         </tr>
                         <tr>
-                            <th>No. of Units</th>
+                            <th class="coordinator admin">Quantity</th>
                         </tr>
                         <tr>
-                            <th>Duration</th>
+                            <th class="coordinator admin">Duration</th>
                         </tr>
                         <tr>
-                            <th>Campaign Start Date</th>
+                            <th class="coordinator admin">Start Date</th>
                         </tr>
                         <tr>
-                            <th>Campaign End Date</th>
+                            <th class="coordinator admin">End Date</th>
                         </tr>
                         <tr>
-                            <th>Campaign extension</th>
+                            <th class="coordinator admin">Extension</th>
                         </tr>
                         <tr>
                             <th class="coordinator d-none">PO from Client</th>
@@ -304,13 +328,16 @@
                         </tr>
                         <% for(var i=0; i<max; i++){ %>
                         <tr class="">
-                            <th class="accountant coordinator admin">vendor <%= i+1 %></th>
+                            <th class="accountant coordinator admin">Vendor Name</th>
                         </tr>
                         <tr class="">
-                            <th class="coordinator admin">Vendor Details</th>
+                            <th class="coordinator admin">Vendor Type</th>
                         </tr>
                         <tr class="">
-                            <th class="coordinator admin">No Of Units</th>
+                            <th class="coordinator admin">Quantity</th>
+                        </tr>
+                        <tr class="">
+                            <th class="coordinator admin">Vendor Status</th>
                         </tr>
                         <tr>
                             <th class="coordinator d-none">Installation Pictures</th>
@@ -361,32 +388,45 @@
                         <% if(currentUser.designation){ %>
                         <tr class="firstRow d-none">
                             <td>
-                                <button class="btn btn-xs btn-warning"
-                                    onclick="edit('<%=campaign.id%>','<%=currentUser.designation%>')">
-                                    Edit
-                                </button>
-                                <% if(currentUser.designation == 'admin'){ %>
-                                <form class="d-inline" id="delete-comment"
-                                    action="/campaign/<%= campaign.id %>?_method=DELETE" method="POST">
-                                    <button class="btn btn-xs btn-danger"
-                                        onclick="return confirm('Are you sure you want to Remove?');">Delete</button>
-                                </form>
-                                <% } %>
+                                <div class="d-flex justify-content-around">
+                                    <div>
+                                        <a class="" onclick="edit('<%=campaign.id%>','<%=currentUser.designation%>')"><i
+                                                class="fas fa-edit"></i> <br>
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <% if(currentUser.designation == 'admin'||currentUser.designation == 'coordinator'){ %>
+                                    <div>
+                                        <form class="d-inline" id="delete-comment"
+                                            action="/campaign/<%= campaign.id %>?_method=DELETE" method="POST">
+                                            <a class="" onclick="return confirm('Are you sure you want to Remove?');"><i
+                                                    class="fas fa-trash-alt"></i><br> Delete</a>
+                                        </form>
+                                    </div>
+                                    <% } %>
+                                </div>
                             </td>
                         </tr>
-                        <% } %>
+                        <% }
+                         if(campaign.Completed == "Completed"){ 
+                            var n="text-success";
+                         }else if(campaign.Completed == "Incomplete"){
+                            var n="text-danger";
+                         }else{
+                            var n="text-warning";
+                         } %>
                         <tr class="">
-                            <td class="admin">
-                                <select class="text-center bg-transparent border-none" name="Completed"
+                            <td class="admin coordinator all">
+                                <select class="text-center bg-transparent border-none wrap <%=n%>" name="Completed"
                                     onchange="updateCampaign(this.value, this.name)" disabled>
-                                    <option value="Completed" <% if(campaign.Completed == "Completed"){ %> selected
-                                        <% } %>>
+                                    <option value="Completed" class='text-success'
+                                        <% if(campaign.Completed == "Completed"){ %> selected <% } %>>
                                         Completed
                                     </option>
-                                    <option value="Incomplete" <% if(campaign.Completed == "Incomplete"){ %> selected
-                                        <% } %>>In Progress
+                                    <option value="Incomplete" class='text-danger'
+                                        <% if(campaign.Completed == "Incomplete"){ %> selected <% } %>>In Progress
                                     </option>
-                                    <option class="text-center" value="On Hold"
+                                    <option value="On Hold" class='text-warning'
                                         <% if(campaign.Completed == "On Hold"){ %> selected <% } %>> On Hold
                                     </option>
                                 </select>
@@ -419,21 +459,27 @@
                     </table>
                 </td>
                 <td class=" <%=campaign.id%> <%=campaign.assignedTo%>">
-                    <table class="w-200 fields tab appendVendorBlank">
+                    <table class="fields tab appendVendorBlank">
                         <% if(currentUser.designation){ %>
                         <tr class="firstRow d-none">
                             <td>
-                                <a class="btn btn-xs btn-warning"
-                                    onclick="edit('<%=campaign.id%>','<%=currentUser.designation%>')">
-                                    Edit
-                                </a>
-                                <% if(currentUser.designation == 'admin'){ %>
-                                <form class="d-inline" id="delete-comment"
-                                    action="/campaign/<%= campaign.id %>?_method=DELETE" method="POST">
-                                    <button class="btn btn-xs btn-danger"
-                                        onclick="return confirm('Are you sure you want to Remove?');">Delete</button>
-                                </form>
-                                <% } %>
+                                <div class="d-flex justify-content-around">
+                                    <div>
+                                        <a class="" onclick="edit('<%=campaign.id%>','<%=currentUser.designation%>')"><i
+                                                class="fas fa-edit"></i> <br>
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <% if(currentUser.designation == 'admin'||currentUser.designation == 'coordinator'){ %>
+                                    <div>
+                                        <form class="d-inline" id="delete-comment"
+                                            action="/campaign/<%= campaign.id %>?_method=DELETE" method="POST">
+                                            <a class="" onclick="return confirm('Are you sure you want to Remove?');"><i
+                                                    class="fas fa-trash-alt"></i><br> Delete</a>
+                                        </form>
+                                    </div>
+                                    <% } %>
+                                </div>
                             </td>
                         </tr>
                         <% } %>
@@ -441,14 +487,14 @@
                             <td class="admin">
                                 <select class="text-center bg-transparent border-none" name="Completed"
                                     onchange="updateCampaign(this.value, this.name)" disabled>
-                                    <option value="Completed" <% if(campaign.Completed == "Completed"){ %> selected
-                                        <% } %>>
+                                    <option value="Completed" class='text-success'
+                                        <% if(campaign.Completed == "Completed"){ %> selected <% } %>>
                                         Completed
                                     </option>
-                                    <option value="Incomplete" <% if(campaign.Completed == "Incomplete"){ %> selected
-                                        <% } %>>In Progress
+                                    <option value="Incomplete" class='text-danger'
+                                        <% if(campaign.Completed == "Incomplete"){ %> selected <% } %>>In Progress
                                     </option>
-                                    <option class="text-center" value="On Hold"
+                                    <option value="On Hold" class='text-warning'
                                         <% if(campaign.Completed == "On Hold"){ %> selected <% } %>> On Hold
                                     </option>
                                 </select>
@@ -488,21 +534,21 @@
                             <td><%=campaign.mediaType%></td>
                         </tr>
                         <tr>
-                            <td class="admin">
+                            <td class="coordinator admin">
                                 <input class="text-center bg-transparent border-none" type="number" name="units"
                                     value="<%=campaign.units%>" onchange="updateCampaign(this.value, this.name)"
                                     disabled>
                             </td>
                         </tr>
                         <tr>
-                            <td class="admin">
+                            <td class="coordinator admin">
                                 <input class="text-center bg-transparent border-none" type="text" name="duration"
                                     value="<%=campaign.duration%>" onchange="updateCampaign(this.value, this.name)"
                                     disabled>
                             </td>
                         </tr>
                         <tr>
-                            <td class="admin">
+                            <td class="coordinator admin">
                                 <input class="text-center bg-transparent border-none" id="startDate<%=campaign.id%>"
                                     type="date" name="startDate" value="<%=campaign.startDate%>"
                                     onchange="updateCampaign(this.value, this.name),changeEndDate(this.value,'<%=campaign.id%>')"
@@ -510,7 +556,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="admin">
+                            <td class="coordinator admin">
                                 <input class="text-center bg-transparent border-none" id="endDate<%=campaign.id%>"
                                     type="date" name="endDate" min="<%=campaign.startDate%>"
                                     value="<%=campaign.endDate%>" onchange="updateCampaign(this.value, this.name)"
@@ -518,7 +564,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="admin">
+                            <td class="coordinator admin">
                                 <select class="text-center bg-transparent border-none" name="extension"
                                     onchange="updateCampaign(this.value, this.name)" disabled>
                                     <option value="1" <% if(campaign.extension){ %> selected <% } %>>Yes
@@ -678,6 +724,13 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="coordinator admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="vendorStatus"
+                                    value="<%= assignment.vendorStatus %>"
+                                    onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="coordinator d-none">
                                 <select class="text-center bg-transparent border-none" name="InstallationPictures"
                                     onchange="updateAssignment(this.value, this.name,'<%= assignment.id %>')" disabled>
@@ -802,6 +855,11 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="coordinator admin">
+
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="coordinator d-none">
                             </td>
                         </tr>
@@ -840,19 +898,20 @@
                         <% a=a+1;
                             } %>
                         <tr class="admin addNewVendor">
-                            <td class="replace border-none"><a class="btn btn-xs btn-info" onclick="repOptions()">
-                                    Add new
+                            <td class="coordinator replace border-none"><a class=""
+                                    onclick="repOptions('<%=campaign.id%>')">
+                                    <i class="fas fa-plus-square"></i> <br> Add Vendor
                                 </a>
                             </td>
-                            <td class="backInitial admin d-none">
-                                <select class="selectVendor" name="assignedTo" required>
+                            <td class="backInitial admin coordinator d-none">
+                                <select class="selectVendor" name="assignedTo" required id="vendorAdd">
                                     <option value="">Select an option</option>
                                     <% vendors.forEach(function(vendor){ %>
                                     <option value="<%= vendor.id %>"><%= vendor.vendorName + ", id-" + vendor.id  %>
                                     </option>
                                     <% }); %>
                                 </select>
-                                <a class="btn btn-xs btn-info"
+                                <a class="btn btn-xs text-body goldenYellow"
                                     onclick="assignVendor('<%=campaign.id%>','<%=currentUser.designation%>')">
                                     Assign
                                 </a>

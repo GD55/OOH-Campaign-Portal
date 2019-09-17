@@ -13,7 +13,7 @@ module.exports = function (app, passport, con, upload) {
     var excel = require('exceljs');
 
     // get clients of a brand
-    app.get('/api/brands/:client_id', isAdmin, function (req, res) {
+    app.get('/api/brands/:client_id', adminorcoordinator, function (req, res) {
         var sql = "SELECT * FROM `brands` WHERE client_id =?";
         con.query(sql, [req.params.client_id], function (err, result, fields) {
             if (err) {
@@ -53,7 +53,7 @@ module.exports = function (app, passport, con, upload) {
 
 
     // assign vendor to campaign
-    app.get('/api/assign/:vendor_id/:project_id', isAdmin, function (req, res) {
+    app.get('/api/assign/:vendor_id/:project_id', adminorcoordinator, function (req, res) {
         var sql = "INSERT INTO `assignment`(`project_id`, `vendor_id`) VALUES (?,?)"
         con.query(sql, [req.params.project_id, req.params.vendor_id], function (err, result, fields) {
             if (err) {
@@ -81,7 +81,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // search vendors by city
-    app.get('/api/vendor/city/:search', notDesiger, function (req, res) {
+    app.get('/api/vendor/city/:search', isLoggedIn, function (req, res) {
         var sql = "SELECT * FROM `vendors` WHERE ocity LIKE '%" + req.params.search + "%'";
         con.query(sql, function (err, result, fields) {
             if (err) {
@@ -93,7 +93,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // search vendors by id
-    app.get('/api/vendor/id/:search', notDesiger, function (req, res) {
+    app.get('/api/vendor/id/:search', isLoggedIn, function (req, res) {
         var sql = "SELECT * FROM `vendors` WHERE id =" + req.params.search;
         con.query(sql, function (err, result, fields) {
             if (err) {
@@ -105,7 +105,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // search vendors by vendorName
-    app.get('/api/vendor/vendorName/:search', notDesiger, function (req, res) {
+    app.get('/api/vendor/vendorName/:search', isLoggedIn, function (req, res) {
         var sql = "SELECT * FROM `vendors` WHERE vendorName LIKE '%" + req.params.search + "%'";
         con.query(sql, function (err, result, fields) {
             if (err) {
@@ -117,7 +117,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // update vendor
-    app.put('/api/vendor/:vendor_id', notDesiger, function (req, res) {
+    app.put('/api/vendor/:vendor_id', notDesigerOrCoordinator, function (req, res) {
         var field = req.body.field;
         var value = req.body.value;
         var sql = "UPDATE `vendors` SET `" + field + "`='" + value + "' WHERE id =?";
@@ -132,7 +132,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // rename file in vendor data and uploads folder
-    app.put('/api/renameFile/:vendorId', notDesiger, function (req, res) {
+    app.put('/api/renameFile/:vendorId', notDesigerOrCoordinator, function (req, res) {
         var field = req.body.field;
         var value = Date.now() + '-' + req.body.value;
         var vendorId = req.params.vendorId;
@@ -315,7 +315,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show new campaign page
-    app.get('/campaign/new', isAdmin, function (req, res) {
+    app.get('/campaign/new', adminorcoordinator, function (req, res) {
         var sql = "SELECT * FROM `user`";
         var sql2 = "SELECT * FROM `clients`";
         con.query(sql, function (err, users, fields) {
@@ -330,7 +330,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // create a new campaign
-    app.post('/campaign', isAdmin, function (req, res) {
+    app.post('/campaign', adminorcoordinator, function (req, res) {
         if (req.body.assignedTo) {
             var clientId = req.body.clients;
             var brandId = req.body.brands || "";
@@ -369,7 +369,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // delete campiagn
-    app.delete('/campaign/:project_id', isAdmin, function (req, res) {
+    app.delete('/campaign/:project_id', adminorcoordinator, function (req, res) {
         var sql = "DELETE FROM `projects` WHERE `projects`.`id` = ?";
         con.query(sql, [req.params.project_id], function (err, result, fields) {
             if (err) {
@@ -392,7 +392,7 @@ module.exports = function (app, passport, con, upload) {
     // =====================================
 
     // show vendor search page
-    app.get('/venNet', notDesiger, function (req, res) {
+    app.get('/venNet', isLoggedIn, function (req, res) {
         res.render('vendors', {
             currentUser: req.user,
         });
@@ -406,7 +406,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show new vendor page
-    app.get('/venNet/upload', notDesiger, function (req, res) {
+    app.get('/venNet/upload', notDesigerOrCoordinator, function (req, res) {
         res.render('uploadVendor', {
             currentUser: req.user,
         });
@@ -471,7 +471,7 @@ module.exports = function (app, passport, con, upload) {
 
     // upload multiple accounts extra files
     var cpUpload2 = upload.fields([{ name: 'uploaded', maxCount: 10 }])
-    app.post('/venNet/upload', notDesiger, cpUpload2, function (req, res) {
+    app.post('/venNet/upload', notDesigerOrCoordinator, cpUpload2, function (req, res) {
         if (req.files['uploaded']) {
             console.log(req.body);
             for (var i = 0; i < req.files['uploaded'].length; i++) {
@@ -566,7 +566,7 @@ module.exports = function (app, passport, con, upload) {
 
     // upload multiple accounts extra files
     var cpUpload2 = upload.fields([{ name: 'accountsFiles', maxCount: 10 }])
-    app.post('/venNet/uploadAllExtra/:vendorId', notDesiger, cpUpload2, function (req, res) {
+    app.post('/venNet/uploadAllExtra/:vendorId', notDesigerOrCoordinator, cpUpload2, function (req, res) {
         vendorId = req.params.vendorId;
         if (req.files['accountsFiles']) {
             console.log(req.body);
@@ -593,7 +593,7 @@ module.exports = function (app, passport, con, upload) {
         { name: 'accountExtra7', maxCount: 1 },
         { name: 'accountExtra8', maxCount: 1 },
         { name: 'accountExtra9', maxCount: 1 }])
-    app.post('/venNet/uploadSingle/:vendorId/:fileName', notDesiger, cpUpload3, function (req, res) {
+    app.post('/venNet/uploadSingle/:vendorId/:fileName', notDesigerOrCoordinator, cpUpload3, function (req, res) {
         var vendorId = req.params.vendorId;
         var field = req.params.fileName;
         var value = req.files[field][0].filename;
@@ -619,19 +619,23 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show a vendor
-    app.get('/venNet/show/:id', notDesiger, function (req, res) {
+    app.get('/venNet/show/:id', isLoggedIn, function (req, res) {
         var sql = "SELECT * FROM `vendors` WHERE id =?";
-        con.query(sql, [req.params.id], function (err, result, fields) {
-            res.render('./vendor', {
-                currentUser: req.user,
-                vendor: result[0]
+        var sql2 = "SELECT * FROM `media` WHERE vendorid =?"
+        con.query(sql, [req.params.id], function (err, vendor, fields) {
+            con.query(sql2, [req.params.id], function (err, media, fields) {
+                res.render('./vendor', {
+                    currentUser: req.user,
+                    vendor: vendor[0],
+                    media: media
+                });
             });
         });
     });
 
 
     // delete account file in vendor data and delete from uploads folder
-    app.get('/venNet/removeFile/:vendorId/:field', notDesiger, function (req, res) {
+    app.get('/venNet/removeFile/:vendorId/:field', notDesigerOrCoordinator, function (req, res) {
         var field = req.params.field;
         var sql = "SELECT " + field + " FROM `vendors` WHERE id =?"
         // query to get address of file
@@ -682,7 +686,7 @@ module.exports = function (app, passport, con, upload) {
     // =====================================
 
     // show excel tool
-    app.get('/tools/excel', notDesiger, function (req, res) {
+    app.get('/tools/excel', isLoggedIn, function (req, res) {
         var sql = "SELECT * FROM `ppt`";
         con.query(sql, function (err, pptFiles) {
             if (err) {
@@ -705,7 +709,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // show ppt tool
-    app.get('/tools/ppt', notDesiger, function (req, res) {
+    app.get('/tools/ppt', isLoggedIn, function (req, res) {
         var sql = "SELECT * FROM `excel`";
         con.query(sql, function (err, excelFiles) {
             if (err) {
@@ -728,7 +732,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // copy file from source to destination
-    app.get('/api/copy/:source/:destination', notDesiger, function (req, res) {
+    app.get('/api/copy/:source/:destination', isLoggedIn, function (req, res) {
         var source = "public/templates/" + req.params.source;
         var destination = "uploads/" + req.params.destination;
         fs.copyFile(source, destination, (err) => {
@@ -740,7 +744,7 @@ module.exports = function (app, passport, con, upload) {
 
     // upload all files
     supload = upload.array('sourceFiles', 12);
-    app.post('/api/upload/:type', notDesiger, function (req, res) {
+    app.post('/api/upload/:type', isLoggedIn, function (req, res) {
         var type = req.params.type;
         files = []
         supload(req, res, function (err) {
@@ -775,14 +779,14 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
-    app.delete('/api/deleteSource', notDesiger, function (req, res) {
+    app.delete('/api/deleteSource', isLoggedIn, function (req, res) {
         var value = req.body.name;
         var type = req.body.type;
         deletefile(type, value);
         return;
     });
 
-    app.delete('/api/deleteAll', notDesiger, function (req, res) {
+    app.delete('/api/deleteAll', isLoggedIn, function (req, res) {
         var type = req.body.type;
         var sql = "SELECT * FROM `" + type + "` WHERE source = 1";
         con.query(sql, function (err, files) {
@@ -797,7 +801,7 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
-    app.delete('/api/cleanTable', notDesiger, function (req, res) {
+    app.delete('/api/cleanTable', isLoggedIn, function (req, res) {
         var type = req.body.type;
         var sql = "SELECT * FROM `" + type + "`";
         con.query(sql, function (err, files) {
@@ -843,7 +847,7 @@ module.exports = function (app, passport, con, upload) {
         });
     }
 
-    app.post('/api/pyhton', notDesiger, function (req, res) {
+    app.post('/api/pyhton', isLoggedIn, function (req, res) {
         dest = req.body.destination;
         type = req.body.type;
         if (type == "ppt") {
@@ -924,11 +928,29 @@ function isAdmin(req, res, next) {
 }
 
 // route middleware to make sure user is admin
-function notDesiger(req, res, next) {
+function notDesigerOrCoordinator(req, res, next) {
     // if user is authenticated in the session, carry on
     if (req.isAuthenticated()) {
         // if user logged in is admin
-        if (req.user.designation == "admin" || req.user.designation == "accountant" || req.user.designation == "coordinator") {
+        if (req.user.designation != "designer" || req.user.designation != "coordinator") {
+            return next();
+        } else {
+            req.flash('indexMessage', 'You dont have enough permission');
+            // if they aren't redirect them to the home page
+            res.redirect('/');
+        }
+    } else {
+        req.flash('loginMessage', 'You need to log in first');
+        // if they aren't redirect them to the home page
+        res.redirect('/login');
+    }
+}
+
+function adminorcoordinator(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+        // if user logged in is admin
+        if (req.user.designation == "admin" || req.user.designation == "coordinator") {
             return next();
         } else {
             req.flash('indexMessage', 'You dont have enough permission');

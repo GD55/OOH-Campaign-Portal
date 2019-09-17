@@ -13,16 +13,20 @@
 </head>
 
 <body>
-    <div class="nav">
-        <a class="navItem" id="" href="/">Home</a>
-        <% if(currentUser){ %>
-        <a class="navItem" href="/profile"> Hello <%=currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1)%> (<%=currentUser.designation.charAt(0).toUpperCase() + currentUser.designation.slice(1)%>)</a>
-        <a href="/campaign" class="navItem"> Campaign Tracker</a>
-        <a href="/venNet" class="navItem"> Ven-net</a>
-        <% if(currentUser.designation == "admin"){ %>
-        <a class="navItem" href="/signup"> Sign Up</a>
-        <a class="navItem" href="/deleteUser"> Delete User</a>
-        <% } %>
-        <a class="navItem" href="/logout"> logout</a>
-        <% } %>
+    <div class="navb row p-0 m-0">
+        <a class="navItem col-md-1 py-2" id="homeIcon" href="/"><i class="fas fa-home"></i></a>
+        <div class="nav col-md-11">
+            <% if(currentUser){ %>
+            <a class="navItem" href="/profile"> Hello <span <% if(currentUser.designation == "admin"){ %>
+                    class="tgoldenYellow"
+                    <% } %>><%=currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1)%></span></a>
+            <a href="/campaign" class="navItem"> TRACK</a>
+            <a href="/venNet" class="navItem"> VEN-NET</a>
+            <% if(currentUser.designation == "admin"){ %>
+            <a class="navItem" href="/signup"> REGISTER</a>
+            <a class="navItem" href="/deleteUser"> TEAM</a>
+            <% } %>
+            <a class="navItem" href="/logout"> LOGOUT</a>
+            <% } %>
+        </div>
     </div>

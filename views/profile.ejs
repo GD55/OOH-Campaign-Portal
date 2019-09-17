@@ -1,11 +1,5 @@
 <% include ./partials/header %>
 <div class="container">
-    <!-- show any messages that come back with authentication -->
-    <% if (message.length > 0) { %>
-    <div class="alert alert-danger">
-        <%= message %>
-    </div>
-    <% } %>
 
     <div class="page-header text-center">
         <h1><span class="fa fa-anchor"></span> Profile Page</h1>
@@ -15,30 +9,37 @@
 
         <!-- LOCAL INFORMATION -->
         <div class="col-sm-6 mx-auto">
-            <div class="card rounded-lg bg-light">
-                <div class="card-body">
-                    <h3><span class="fa fa-user"></span> Local</h3>
+            <div class="card rounded-lg translucentBox">
+                <div class="card-body p-0">
+                    <h3 class="bg-black text-center py-2"> PROFILE</h3>
+                    <div class="p-3">
+                        <div class="d-flex">
+                            <div class="d-flex flex-column">
+                                <strong class="pr-3">Profile Id :</strong>
+                                <strong class="pr-3">Designation :</strong>
+                                <strong class="pr-3">User Name :</strong>
+                                <strong class="pr-3">Office Id :</strong>
+                                <strong class="pr-3">Email Address :</strong>
+                                <strong class="pr-3">Phone Number :</strong>
+                            </div>
+                            <div class="d-flex flex-column pl-4">
+                                <span class="pl-3"><%= currentUser.id %></span>
+                                <span
+                                    class="pl-3"><%= currentUser.designation.charAt(0).toUpperCase() + currentUser.designation.slice(1) %></span>
+                                <span
+                                    class="pl-3"><%= currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1) %></span>
+                                <span class="pl-3"><%= currentUser.office_id %></span>
+                                <span class="pl-3"><%= currentUser.email %></span>
+                                <span class="pl-3"><%= currentUser.phone_no %></span>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
 
-                    <p>
-                        <strong>id</strong>:
-                        <%= currentUser.id %><br>
-                        <strong>designation</strong>:
-                        <%= currentUser.designation %><br>
-                        <strong>username</strong>:
-                        <%= currentUser.name %><br>
-                        <strong>office id</strong>:
-                        <%= currentUser.office_id %><br>
-                        <strong>email</strong>:
-                        <%= currentUser.email %><br>
-                        <strong>phone no</strong>:
-                        <%= currentUser.phone_no %>
-                    </p>
                 </div>
-
             </div>
-        </div>
 
+        </div>
     </div>
 </div>
-
-<% include ./partials/footer %>
+<% include ./partials/footer2 %>

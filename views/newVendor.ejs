@@ -1,249 +1,263 @@
 <% include ./partials/header %>
 
-<div class="container">
-    <div class="col-sm-10 mx-auto">
-
-        <h1 class="text-center"><i class="fas fa-sign-in-alt"></i> New Vendor</h1>
-
-        <!-- NEW VENDOR FORM -->
-        <form action="/venNet" method="post" enctype="multipart/form-data">
-            <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>Type Of Organization</label>
-                    <input type="text" class="form-control" name="organizationType" required>
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>Name of Vendor(Billing Name)</label>
-                    <input type="text" class="form-control" name="vendorName" required>
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="row">
-                    <div class="col-md-6">
+<div class="contain text-center  m-0 pr-5">
+    <div class="row">
+        <div class="col-md-2 text-left">
+            <a class="btn bg-black my-2 w-100" href="/venNet/new"><i class="fas fa-angle-up p-2 float-left"></i> Add
+                Individual</a>
+            <a class="btn bg-black my-2 w-75" href="/venNet/upload"><i
+                    class="fas fa-angle-double-up p-2 float-left"></i> Add Multiple</a>
+            <a class="btn bg-black my-2 w-75" href="/venNet/download"><i
+                    class="fas fa-file-alt p-2 float-left"></i>
+                Download</a>
+        </div>
+        <div class="col-md-10 pl-5 translucentBox">
+            <div>
+                <h1 class="text-center bg-black">New Vendor</h1>
+                <!-- NEW VENDOR FORM -->
+                <form action="/venNet" method="post" enctype="multipart/form-data">
+                    <div class="border-black p-3">
                         <div class="form-group">
-                            <label>Coorporate Address</label>
-                            <textarea class="form-control" rows="5" name="officeAddress" required></textarea>
+                            <label>Type Of Organization</label>
+                            <input type="text" class="form-control" name="organizationType" required>
                         </div>
+                    </div>
+                    <div class="border-black p-3">
+                        <div class="form-group">
+                            <label>Name of Vendor(Billing Name)</label>
+                            <input type="text" class="form-control" name="vendorName" required>
+                        </div>
+                    </div>
+                    <div class="border-black p-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Coorporate Address</label>
+                                    <textarea class="form-control" rows="5" name="officeAddress" required></textarea>
+                                </div>
 
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" name="ocity" required>
+                                    </div>
+                                    <div class="form-group col-md-6 ">
+                                        <label>Pin Code</label>
+                                        <input type="number" class="form-control" name="opinCode">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" name="ostate" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Registered Address</label>
+                                    <textarea class="form-control" rows="5" name="registeredAddress"></textarea>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" name="rcity">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Pin Code</label>
+                                        <input type="number" class="form-control" name="rpinCode">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>State</label>
+                                    <input type="text" class="form-control" name="rstate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-black p-3">
+                        <div class="form-group">
+                            <label>Website</label>
+                            <input type="text" class="form-control" name="website">
+                        </div>
+                    </div>
+                    <div class="border-black p-3">
+                        <div class="form-group">
+                            <label>Service Type</label>
+                            <select class="form-control" name="serviceDescription" onchange="checkOption(this.value);"
+                                required>
+                                <option value="">Select Options</option>
+                                <option>Media Owner</option>
+                                <option>Media Agency</option>
+                                <option>Media Planning</option>
+                                <option>Media Buying</option>
+                                <option>Printing Services</option>
+                                <option>Fabrication Services</option>
+                                <option>Mounting Services</option>
+                                <option>Others</option>
+                            </select>
+                            <input type="text" class="form-control d-none mt-3" name="other" id="OtherService">
+                        </div>
+                    </div>
+                    <div class="border-black p-3">
+                        <div class="form-group">
+                            <label>Presence</label>
+                            <input type="text" class="form-control" name="materialDescription">
+                        </div>
+                    </div>
+                    <input type="text" class="d-none form-control" id="noofmedia" name="noofmedia" value="0">
+                    <div class="border-black p-3">
+                        <div class="form-row" id="mediano0">
+                            <div class="form-row col-md-11">
+                                <div class="form-group col-md-3">
+                                    <label>Media Option</label>
+                                    <input type="text" class="form-control" name="mediaoption0" id="mediaoption0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" name="city0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Contact Person</label>
+                                    <input type="text" class="form-control" name="contactperson0">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Contact Detail</label>
+                                    <input type="text" class="form-control" name="contactdetail0">
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <h2 class="text-center" onclick="addMedia()"><i class="fas fa-plus-square"></i></h2>
+                                <small>Add Media</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-black p-3">
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>City</label>
-                                <input type="text" class="form-control" name="ocity" required>
+                                <label>Concerned Person(Media Related)</label>
+                                <input type="text" class="form-control" name="contactPersonName" required>
                             </div>
-                            <div class="form-group col-md-6 ">
-                                <label>Pin Code</label>
-                                <input type="number" class="form-control" name="opinCode">
+                            <div class="form-group col-md-6">
+                                <label>Mobile No.</label>
+                                <input type="number" class="form-control" name="mobileNo" required>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label>State</label>
-                            <input type="text" class="form-control" name="ostate" required>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Registered Address</label>
-                            <textarea class="form-control" rows="5" name="registeredAddress"></textarea>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>City</label>
-                                <input type="text" class="form-control" name="rcity">
+                                <label>Landline No.</label>
+                                <input type="number" class="form-control" name="landlineNo">
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Pin Code</label>
-                                <input type="number" class="form-control" name="rpinCode">
+                                <label>Email Address</label>
+                                <input type="email" class="form-control" name="emailId" required>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="border-black p-3">
                         <div class="form-group">
-                            <label>State</label>
-                            <input type="text" class="form-control" name="rstate">
+                            <label>A/C Name</label>
+                            <input type="text" class="form-control" name="bankName">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Bank Name</label>
+                                <input type="text" class="form-control" name="nameOfBank">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Bank Branch</label>
+                                <input type="text" class="form-control" name="bankBranch">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>A/C No.</label>
+                                <input type="number" class="form-control" name="accountNumber">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>IFSC Code</label>
+                                <input type="text" class="form-control" name="ifscCode">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Please attach Cancelled Cheque Copy</label>
+                            <input type="file" class="form-control-file" id="exampleFormControlFile1"
+                                name="cancelledCheque" accept="image/*,.doc,.pdf">
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>Website</label>
-                    <input type="text" class="form-control" name="website">
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>Service Type</label>
-                    <select class="form-control" name="serviceDescription" onchange="checkOption(this.value);" required>
-                        <option value="">Select Options</option>
-                        <option>Media Owner</option>
-                        <option>Media Agency</option>
-                        <option>Media Planning</option>
-                        <option>Media Buying</option>
-                        <option>Printing Services</option>
-                        <option>Fabrication Services</option>
-                        <option>Mounting Services</option>
-                        <option>Others</option>
-                    </select>
-                    <input type="text" class="form-control d-none mt-3" name="other" id="OtherService">
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>Presence</label>
-                    <input type="text" class="form-control" name="materialDescription">
-                </div>
-            </div>
-            <input type="text" class="d-none form-control" id="noofmedia" name="noofmedia" value="0">
-            <div class="border border-dark p-3">
-                <div class="form-row" id="mediano0">
-                    <div class="form-row col-md-11">
-                        <div class="form-group col-md-3">
-                            <label>Media Option</label>
-                            <input type="text" class="form-control" name="mediaoption0" id="mediaoption0">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>City</label>
-                            <input type="text" class="form-control" name="city0">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Contact Person</label>
-                            <input type="text" class="form-control" name="contactperson0">
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label>Contact Detail</label>
-                            <input type="text" class="form-control" name="contactdetail0">
+                    <div class="border-black p-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>GST(%)</label>
+                                <input type="number" class="form-control" name="gstPercentage">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>TDS(%)</label>
+                                <input type="number" class="form-control" name="tdsPercentage">
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-1">
-                        <h2 class="text-center" onclick="addMedia()"><i class="fas fa-plus-square"></i></h2>
-                        <small>Add Media</small>
+                    <div class="border-black p-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label>GST No.</label>
+                                <input type="text" class="form-control" name="gstNo">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>State Code</label>
+                                <input type="number" class="form-control" name="stateCode">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>SAC/HSN Code</label>
+                                <input type="number" class="form-control" name="hsnCode">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="mt-3">PAN No.</label>
+                                <input type="text" class="form-control" name="panNo">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label class="mt-3">MSMED <small>(Micro, Small and Medium Enterprises Development
+                                        Act,2006)</small></label>
+                                <input type="text" class="form-control" name="msmed">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Please attach the copy of Registration Certificate, PAN CARD, GST Certificate
+                                With
+                                Stamp & Sign</label>
+                            <input type="file" class="form-control-file" id="accounts" name="accountsFiles" multiple
+                                accept="image/*,.doc,.pdf">
+                            <small class="form-text text-muted">
+                                *You can upload multiple image/files placed in a location locally by selecting
+                                multiple images while holding ctrl key.
+                            </small><br>
+                        </div>
                     </div>
-                </div>
+                    <div class="border-black p-3">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Contact Person(Authorised Signatory)</label>
+                                <input type="text" class="form-control" name="personName" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Designation</label>
+                                <input type="text" class="form-control" name="designation" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlFile1">Please attach Vendor Round Stamp</label>
+                            <input type="file" class="form-control-file" id="" name="vendorRoundStamp"
+                                accept="image/*,.doc,.pdf">
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" id="submitButton" class=" btn goldenYellow btn-lg my-3">
+                    </div>
+                </form>
             </div>
-            <div class="border border-dark p-3">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Concerned Person(Media Related)</label>
-                        <input type="text" class="form-control" name="contactPersonName" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Mobile No.</label>
-                        <input type="number" class="form-control" name="mobileNo" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Landline No.</label>
-                        <input type="number" class="form-control" name="landlineNo">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Email Address</label>
-                        <input type="email" class="form-control" name="emailId" required>
-                    </div>
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-group">
-                    <label>A/C Name</label>
-                    <input type="text" class="form-control" name="bankName">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Bank Name</label>
-                        <input type="text" class="form-control" name="nameOfBank">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Bank Branch</label>
-                        <input type="text" class="form-control" name="bankBranch">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>A/C No.</label>
-                        <input type="number" class="form-control" name="accountNumber">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>IFSC Code</label>
-                        <input type="text" class="form-control" name="ifscCode">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Please attach Cancelled Cheque Copy</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1" name="cancelledCheque"
-                        accept="image/*,.doc,.pdf">
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>GST(%)</label>
-                        <input type="number" class="form-control" name="gstPercentage">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>TDS(%)</label>
-                        <input type="number" class="form-control" name="tdsPercentage">
-                    </div>
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label>GST No.</label>
-                        <input type="text" class="form-control" name="gstNo">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>State Code</label>
-                        <input type="number" class="form-control" name="stateCode">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>SAC/HSN Code</label>
-                        <input type="number" class="form-control" name="hsnCode">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label class="mt-3">PAN No.</label>
-                        <input type="text" class="form-control" name="panNo">
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>MSMED <small>(Micro, Small and Medium Enterprises Development Act, 2006)</small></label>
-                        <input type="text" class="form-control" name="msmed">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="">Please attach the copy of Registration Certificate, PAN CARD, GST Certificate With
-                        Stamp & Sign</label>
-                    <input type="file" class="form-control-file" id="accounts" name="accountsFiles" multiple
-                        accept="image/*,.doc,.pdf">
-                    <small class="form-text text-muted">
-                        *You can upload multiple image/files placed in a location locally by selecting
-                        multiple images while holding ctrl key.
-                    </small><br>
-                </div>
-            </div>
-            <div class="border border-dark p-3">
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>Contact Person(Authorised Signatory)</label>
-                        <input type="text" class="form-control" name="personName" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Designation</label>
-                        <input type="text" class="form-control" name="designation" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Please attach Vendor Round Stamp</label>
-                    <input type="file" class="form-control-file" id="" name="vendorRoundStamp"
-                        accept="image/*,.doc,.pdf">
-                </div>
-            </div>
-            <div class="text-center">
-                <input type="submit" id="submitButton" class=" btn btn-outline-dark btn-lg my-3">
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<% include ./partials/footer %>
+<% include ./partials/footer2 %>
