@@ -21,7 +21,7 @@
                     class="tgoldenYellow"
                     <% } %>><%=currentUser.name.charAt(0).toUpperCase() + currentUser.name.slice(1)%></span></a>
             <a href="/campaign" class="navItem"> TRACK</a>
-            <a href="/venNet" class="navItem"> VEN-NET</a>
+            <a href="/venNet" class="navItem" id="venNetNav"> VEN-NET</a>
             <% if(currentUser.designation == "admin"){ %>
             <a class="navItem" href="/signup"> REGISTER</a>
             <a class="navItem" href="/deleteUser"> TEAM</a>

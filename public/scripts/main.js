@@ -7,6 +7,14 @@ var tool = "";
 var currentPage;
 
 $(document).ready(function () {
+    $('.navitem').each(function (i) {
+        if (window.location.pathname == $(this).attr('href')) {
+            $(this).addClass('tgoldenYellow');
+        }
+    });
+    if (window.location.pathname.includes('/venNet')) {
+        $('#venNetNav').addClass('tgoldenYellow');
+    }
     if (window.location.pathname == '/tools/excel' || window.location.pathname == '/tools/ppt') {
         if (window.location.pathname == '/tools/excel') {
             tool = "excel";
@@ -231,7 +239,7 @@ function vendorSearch() {
         heading = "<tr><th>Id</th><th>City</th><th>Vendor Name</th><th>Contact Person</th><th>Mobile No.</th></tr>";
         $("#append").append(heading);
         data.forEach(function (vendor) {
-            var newVendor = "<tr><td>" + vendor.id + " </td><td> " + vendor.ocity + " </td><td> <a class='' target='_blank' href='/venNet/show/" + vendor.id + "'><strong>" + vendor.vendorName + "</strong></a> </td><td> " + vendor.contactPersonName + "</td><td> " + vendor.mobileNo + " </td></tr>";
+            var newVendor = "<tr><td>" + vendor.id + " </td><td> " + vendor.ocity + " </td><td class='bg-black'> <a target='_blank' href='/venNet/show/" + vendor.id + "'><strong>" + vendor.vendorName + "</strong></a> </td><td> " + vendor.contactPersonName + "</td><td> " + vendor.mobileNo + " </td></tr>";
             $("#append").append(newVendor);
         });
     });
@@ -248,12 +256,25 @@ function clearvendor() {
     $("#append").children().remove();
 }
 
+var vendorE = false;
+
 function vendorEdit(id) {
-    $("input").prop("disabled", false).removeClass("border-none");
-    $(".download").addClass("d-none");
-    $(".upload").removeClass("d-none");
-    $("#editButton").addClass('w-100');
-    vendorId = id;
+    if (!vendorE) {
+        $("input").prop("disabled", false).removeClass("border-none");
+        $(".download").addClass("d-none");
+        $(".upload").removeClass("d-none");
+        $("#editButton").addClass('w-100').addClass('tgoldenYellow');
+        vendorId = id;
+        vendorE = true;
+    } else {
+        $("input").prop("disabled", true).addClass("border-none");
+        $(".download").removeClass("d-none");
+        $(".upload").addClass("d-none");
+        $("#editButton").removeClass('w-100').removeClass('tgoldenYellow');
+        $('.mediaForm').addClass('d-none');
+        vendorId = id;
+        vendorE = false;
+    }
 }
 
 function updateVendor(v, name) {
@@ -314,29 +335,47 @@ function updateAssignment(v, name, assignmentId) {
     });
 }
 
-function renameFile(path, fileId, vendorId) {
-    var text = $('#rename' + fileId + ' span').text();
+// function renameFile(path, fileId, vendorId) {
+//     var text = $('#rename' + fileId + ' span').text();
+//     var oldName = path.substring(22).split('.').slice(0, -1).join('.');
+//     // alert(path.substring(22).split('.').slice(0, -1).join('.'));
+//     if (text == "Rename") {
+//         $('#' + fileId).html("<input id='input" + fileId + "' type='text' value='" + oldName + "'>");
+//         // alert($('#'+fileId).text("hello"));
+//         $('#rename' + fileId + " span").text('Save');
+//     } else if (text == "Save") {
+//         var newName = $('#input' + fileId).val();
+//         $('#rename' + fileId + " span").text('Rename');
+//         if (newName != oldName) {
+//             $('#' + fileId).text(newName);
+//             var extension = path.split('.').pop();
+//             var updateData = { field: fileId, value: newName + "." + extension }
+//             $.ajax({
+//                 method: 'PUT',
+//                 url: '/api/renameFile/' + vendorId,
+//                 data: updateData
+//             });
+//         } else {
+//             $('#' + fileId).text(oldName);
+//         }
+//     }
+// }
+
+function renameDoc(path, fileId, vendorId) {
     var oldName = path.substring(22).split('.').slice(0, -1).join('.');
-    // alert(path.substring(22).split('.').slice(0, -1).join('.'));
-    if (text == "Rename") {
-        $('#' + fileId).html("<input id='input" + fileId + "' type='text' value='" + oldName + "'>");
-        // alert($('#'+fileId).text("hello"));
-        $('#rename' + fileId + " span").text('Save');
-    } else if (text == "Save") {
-        var newName = $('#input' + fileId).val();
-        $('#rename' + fileId + " span").text('Rename');
-        if (newName != oldName) {
-            $('#' + fileId).text(newName);
-            var extension = path.split('.').pop();
-            var updateData = { field: fileId, value: newName + "." + extension }
-            $.ajax({
-                method: 'PUT',
-                url: '/api/renameFile/' + vendorId,
-                data: updateData
-            });
-        } else {
-            $('#' + fileId).text(oldName);
-        }
+    var newName = $('#input' + fileId).val();
+    $('#rename' + fileId + " span").text('Rename');
+    if (newName != oldName) {
+        $('#' + fileId).text(newName);
+        var extension = path.split('.').pop();
+        var updateData = { field: fileId, value: newName + "." + extension }
+        $.ajax({
+            method: 'PUT',
+            url: '/api/renameFile/' + vendorId,
+            data: updateData
+        });
+    } else {
+        $('#' + fileId).text(oldName);
     }
 }
 
@@ -493,4 +532,18 @@ function hidespan(v) {
     if (v != currentPage) {
         $('span.' + v).addClass('d-none');
     }
+}
+
+function showMediaForm() {
+    $('.mediaForm').removeClass('d-none');
+    $('.mediaFormBtn').addClass('d-none');
+}
+
+function updateMedia(v, name, id) {
+    var updateData = { field: name, value: v };
+    $.ajax({
+        method: 'PUT',
+        url: '/api/media/' + id,
+        data: updateData
+    });
 }

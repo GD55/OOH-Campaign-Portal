@@ -554,15 +554,16 @@ module.exports = function (app, passport, con, upload) {
             }
             res.redirect('/venNet');
         });
-        function undefined(a) {
-            if (typeof a === "undefined") {
-                return null;
-            }
-            else {
-                return a;
-            }
-        }
     });
+
+    function undefined(a) {
+        if (typeof a === "undefined") {
+            return null;
+        }
+        else {
+            return a;
+        }
+    }
 
     // upload multiple accounts extra files
     var cpUpload2 = upload.fields([{ name: 'accountsFiles', maxCount: 10 }])
@@ -665,6 +666,27 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
+    app.post('/venNet/addMedia/:vendorId', notDesigerOrCoordinator, function (req, res) {
+        var insertMediaQuery = "INSERT INTO `media`(`mediaoption`, `city`, `contactperson`, `contactdetail`, `vendorid`) VALUES (?,?,?,?,?)"
+        var vendorId = req.params.vendorId;
+        con.query(insertMediaQuery, [undefined(req.body.mediaoption), undefined(req.body.city), undefined(req.body.contactperson), undefined(req.body.contactdetail), vendorId], function (err, result, fields) {
+        });
+        res.redirect('back')
+    });
+
+    app.put('/api/media/:media_id', notDesigerOrCoordinator, function (req, res) {
+        var field = req.body.field;
+        var value = req.body.value;
+        var sql = "UPDATE `media` SET `" + field + "`='" + value + "' WHERE id =?";
+        con.query(sql, [req.params.media_id], function (err, result, fields) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+            }
+        });
+    });
+
     // update a vendor
     function updateVendor(field, value, vendorId) {
         var sql = "UPDATE `vendors` SET `" + field + "`='uploads/" + value + "' WHERE id =?";
@@ -678,8 +700,6 @@ module.exports = function (app, passport, con, upload) {
             }
         });
     }
-
-
 
     // =====================================
     // office-tools ========================

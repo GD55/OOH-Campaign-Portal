@@ -15,427 +15,477 @@
         <div class="col-md-10 translucentBox p-0">
             <div class="vendorTable">
                 <h1 class="bg-black text-center">Vendor</h1>
-                <table class="tab" align="center">
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                    </tr>
-                    <tr>
-                        <th>Id</th>
-                        <td><%= vendor.id %></td>
-                    </tr>
-                    <tr>
-                        <th>Type Of Organization</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="organizationType"
-                                value="<%= vendor.organizationType %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Name of Vendor(Billing Name)</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="vendorName"
-                                value="<%= vendor.vendorName %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Coorporate Address</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="officeAddress"
-                                value="<%= vendor.officeAddress %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>City</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="ocity"
-                                value="<%= vendor.ocity %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Pin Code</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="opinCode"
-                                value="<%= vendor.opinCode %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>State</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="ostate"
-                                value="<%= vendor.ostate %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Registered Address</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="registeredAddress"
-                                value="<%= vendor.registeredAddress %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>City</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="rcity"
-                                value="<%= vendor.rcity %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Pin Code</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="rpinCode"
-                                value="<%= vendor.rpinCode %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>State</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="rstate"
-                                value="<%= vendor.rstate %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Website</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="website"
-                                value="<%= vendor.website %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Service Type</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="serviceDescription"
-                                value="<%= vendor.serviceDescription %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Presence</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="materialDescription"
-                                value="<%= vendor.materialDescription %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Concerned Person(Media Related)</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="contactPersonName"
-                                value="<%= vendor.contactPersonName %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Mobile No.</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="mobileNo"
-                                value="<%= vendor.mobileNo %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Landline No.</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="landlineNo"
-                                value="<%= vendor.landlineNo %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Email Address</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="email" name="emailId"
-                                value="<%= vendor.emailId %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>A/C Name</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="bankName"
-                                value="<%= vendor.bankName %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Bank Name</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="nameOfBank"
-                                value="<%= vendor.nameOfBank %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Bank Branch</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="bankBranch"
-                                value="<%= vendor.bankBranch %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>A/C No.</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="accountNumber"
-                                value="<%= vendor.accountNumber %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>IFSC Code</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="ifscCode"
-                                value="<%= vendor.ifscCode %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr class="download">
-                        <th>Cancelled Cheque</th>
-                        <td><% if(vendor['cancelledCheque']){%>
-                            <span
-                                id="<%='cancelledCheque'%>"><%= vendor['cancelledCheque'].substring(22).split('.').slice(0, -1).join('.') %></span>
-                            <%}%>
-                <% if(vendor.cancelledCheque){ %>
-                            <a class="btn btn-xs btn-warning" target="_blank" href="/<%= vendor.cancelledCheque %>">
-                                Download
-                            </a>
-                            <a class="btn btn-xs btn-secondary" target="_blank" id="renamecancelledCheque"
-                                onclick="renameFile('<%= vendor.cancelledCheque %>', 'cancelledCheque','<%= vendor.id %>');">
-                                <span>Rename</span>
-                            </a>
-                            <a class="btn btn-xs btn-danger"
-                                onclick="return confirm('Are you sure you want to Remove?');"
-                                href="/venNet/removeFile/<%= vendor.id %>/<%= 'cancelledCheque' %>">
-                                Remove
-                            </a>
+                <div class="py-3">
+                    <table class="tab py-3" align="center">
+                        <tr>
+                            <th>Name</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <th>Id</th>
+                            <td><%= vendor.id %></td>
+                        </tr>
+                        <tr>
+                            <th>Type Of Organization</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text"
+                                    name="organizationType" value="<%= vendor.organizationType %>"
+                                    onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Name of Vendor(Billing Name)</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="vendorName"
+                                    value="<%= vendor.vendorName %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Coorporate Address</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="officeAddress"
+                                    value="<%= vendor.officeAddress %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="ocity"
+                                    value="<%= vendor.ocity %>" onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Pin Code</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="opinCode"
+                                    value="<%= vendor.opinCode %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>State</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="ostate"
+                                    value="<%= vendor.ostate %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Registered Address</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text"
+                                    name="registeredAddress" value="<%= vendor.registeredAddress %>"
+                                    onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>City</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="rcity"
+                                    value="<%= vendor.rcity %>" onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Pin Code</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="rpinCode"
+                                    value="<%= vendor.rpinCode %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>State</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="rstate"
+                                    value="<%= vendor.rstate %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Website</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="website"
+                                    value="<%= vendor.website %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Service Type</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text"
+                                    name="serviceDescription" value="<%= vendor.serviceDescription %>"
+                                    onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Presence</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text"
+                                    name="materialDescription" value="<%= vendor.materialDescription %>"
+                                    onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Concerned Person(Media Related)</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text"
+                                    name="contactPersonName" value="<%= vendor.contactPersonName %>"
+                                    onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Mobile No.</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="mobileNo"
+                                    value="<%= vendor.mobileNo %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Landline No.</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="landlineNo"
+                                    value="<%= vendor.landlineNo %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Email Address</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="email" name="emailId"
+                                    value="<%= vendor.emailId %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>A/C Name</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="bankName"
+                                    value="<%= vendor.bankName %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Bank Name</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="nameOfBank"
+                                    value="<%= vendor.nameOfBank %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Bank Branch</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="bankBranch"
+                                    value="<%= vendor.bankBranch %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>A/C No.</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="accountNumber"
+                                    value="<%= vendor.accountNumber %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>IFSC Code</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="ifscCode"
+                                    value="<%= vendor.ifscCode %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr class="download">
+                            <th>Cancelled Cheque</th>
+                            <td><% if(vendor['cancelledCheque']){%>
+                                <a id="<%='cancelledCheque'%>" class="" target="_blank"
+                                    href="/<%= vendor.cancelledCheque %>">
+                                    <%= vendor['cancelledCheque'].substring(22).split('.').slice(0, -1).join('.') %>
+                                </a>
+                                <% }else{ %>
+                                No file present
+                                <% } %>
+                            </td>
+                        </tr>
+                        <tr class="upload d-none">
+                            <th <% if(vendor.cancelledCheque){ %> class="text-success" <% } %>>Cancelled Cheque</th>
+                            <% if(vendor['cancelledCheque']){%>
+                            <td>
+                                <input class="text-center bg-transparent border-none" type="text" name=""
+                                    id="inputcancelledCheque"
+                                    value="<%= vendor['cancelledCheque'].substring(22).split('.').slice(0, -1).join('.') %>"
+                                    onchange="renameDoc('<%= vendor.cancelledCheque %>', 'cancelledCheque','<%= vendor.id %>');">
+                            </td>
+                            <td class="extraiconcell">
+                                <a class="" onclick="return confirm('Are you sure you want to Remove?');"
+                                    href="/venNet/removeFile/<%= vendor.id %>/<%= 'cancelledCheque' %>">
+                                    <i class="fas fa-trash-alt pl-3"></i>
+                                </a>
+                            </td>
                             <% }else{ %>
-                            No file present
+                            <td>
+                                <form action="/venNet/uploadSingle/<%= vendor.id %>/cancelledCheque" method="post"
+                                    enctype="multipart/form-data">
+                                    <input type="file" class="" id="" name="cancelledCheque" accept="image/*,.doc,.pdf">
+                                    <button class="btn btn-xs goldenYellow">Upload</button>
+                                </form>
+                            </td>
                             <% } %>
-                        </td>
-                    </tr>
-                    <tr class="upload d-none">
-                        <th <% if(vendor.cancelledCheque){ %> class="text-success" <% } %>>Cancelled Cheque</th>
-                        <td>
-                            <form action="/venNet/uploadSingle/<%= vendor.id %>/cancelledCheque" method="post"
-                                enctype="multipart/form-data">
-                                <input type="file" class="" id="" name="cancelledCheque" accept="image/*,.doc,.pdf">
-                                <button class="btn btn-xs btn-primary">Upload</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>GST(%)</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="gstPercentage"
-                                value="<%= vendor.gstPercentage %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>TDS(%)</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="tdsPercentage"
-                                value="<%= vendor.tdsPercentage %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>GST No.</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="gstNo"
-                                value="<%= vendor.gstNo %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>State Code</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="stateCode"
-                                value="<%= vendor.stateCode %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>SAC/HSN Code</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="number" name="hsnCode"
-                                value="<%= vendor.hsnCode %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>PAN No.</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="panNo"
-                                value="<%= vendor.panNo %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>MSMED</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="msmed"
-                                value="<%= vendor.msmed %>" onchange="updateVendor(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <% var accountsFilePresent = false; %>
-                    <% for (var i=0 ; i<10 ; i++){ %>
-                    <% if(vendor["accountExtra" + i]){ 
-            accountsFilePresent = true;}} %>
-                    <% for (var i=0 ; i<10 ; i++){ %>
-                    <% if(vendor["accountExtra" + i]){ %>
-                    <tr class="download">
-                        <th>Accounts Extra <%=i+1%></th>
-                        <td><span
-                                id="<%='accountExtra' + i%>"><%= vendor['accountExtra' + i].substring(22).split('.').slice(0, -1).join('.') %></span>
-                            <a class="btn btn-xs btn-warning" target="_blank" href="/<%= vendor['accountExtra' + i] %>">
-                                Download
-                            </a>
-                            <% var ac = 'accountExtra' %>
-                            <a class="btn btn-xs btn-secondary " id="rename<%= ac + i%>" target="_blank"
-                                onclick="renameFile('<%= vendor[ ac + i] %>', '<%= ac + i%>','<%= vendor.id %>');">
-                                <span>Rename</span>
-                            </a>
-                            <a class="btn btn-xs btn-danger"
-                                onclick="return confirm('Are you sure you want to Remove?');"
-                                href="/venNet/removeFile/<%= vendor.id %>/<%= 'accountExtra' + i %>">
-                                Remove
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class="upload d-none">
-                        <th class="text-success">Accounts Extra <%=i+1%></th>
-                        <td>
-                            <form action="/venNet/uploadSingle/<%= vendor.id %>/accountExtra<%=i%>" method="post"
-                                enctype="multipart/form-data">
-                                <input type="file" class="" id="" name="accountExtra<%=i%>" accept="image/*,.doc,.pdf">
-                                <button class="btn btn-xs btn-primary">Upload</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <% }else if(accountsFilePresent){ %>
-                    <tr class="download">
-                        <th>Accounts Extra <%=i+1%></th>
-                        <td>Empty Field</td>
-                    </tr>
-                    <tr class="upload d-none">
-                        <th>Accounts Extra <%=i+1%></th>
-                        <td>
-                            <form action="/venNet/uploadSingle/<%= vendor.id %>/accountExtra<%=i%>" method="post"
-                                enctype="multipart/form-data">
-                                <input type="file" class="" id="" name="accountExtra<%=i%>" accept="image/*,.doc,.pdf">
-                                <button class="btn btn-xs btn-primary">Upload</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <% } %>
-                    <% } %>
-                    <% if(!accountsFilePresent){ %>
-                    <tr class="download">
-                        <th>Accounts Extra</th>
-                        <td>No file present</td>
-                    </tr>
-                    <tr class="upload d-none">
-                        <th>Accounts Extra </th>
-                        <td>
-                            <form action="/venNet/uploadAllExtra/<%= vendor.id %>" method="post"
-                                enctype="multipart/form-data">
-                                <input type="file" class="" id="accounts" name="accountsFiles" multiple
-                                    accept="image/*,.doc,.pdf">
-                                <button class="btn btn-xs btn-primary">Upload</button>
-                            </form>
-                            <small class="form-text text-muted">
-                                *You can upload multiple image/files placed in a location locally by selecting
-                                multiple images while holding ctrl key max limit is 10 files.
-                            </small><br>
-                        </td>
-                    </tr>
-                    <% } %>
-                    <tr>
-                        <th>Contact Person(Authorised Signatory)</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="personName"
-                                value="<%= vendor.personName %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Designation</th>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="designation"
-                                value="<%= vendor.designation %>" onchange="updateVendor(this.value, this.name)"
-                                disabled>
-                        </td>
-                    </tr>
-                    <tr class="download">
-                        <th>Vendor Round Stamp</th>
-                        <td><% if(vendor['vendorRoundStamp']){%><span
-                                id="<%='vendorRoundStamp'%>"><%= vendor['vendorRoundStamp'].substring(22).split('.').slice(0, -1).join('.') %></span>
-                            <%}%>
-                <% if(vendor.vendorRoundStamp){ %>
-                            <a class="btn btn-xs btn-warning" target="_blank" href="/<%= vendor.vendorRoundStamp %>">
-                                Download
-                            </a>
-                            <a class="btn btn-xs btn-secondary" target="_blank" id="renamevendorRoundStamp"
-                                onclick="renameFile('<%= vendor.vendorRoundStamp %>', 'vendorRoundStamp','<%= vendor.id %>');">
-                                <span>Rename</span>
-                            </a>
-                            <a class="btn btn-xs btn-danger"
-                                onclick="return confirm('Are you sure you want to Remove?');"
-                                href="/venNet/removeFile/<%= vendor.id %>/<%= 'vendorRoundStamp'%>">
-                                Remove
-                            </a>
+                        </tr>
+                        <tr>
+                            <th>GST(%)</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="gstPercentage"
+                                    value="<%= vendor.gstPercentage %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>TDS(%)</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="tdsPercentage"
+                                    value="<%= vendor.tdsPercentage %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>GST No.</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="gstNo"
+                                    value="<%= vendor.gstNo %>" onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>State Code</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="stateCode"
+                                    value="<%= vendor.stateCode %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>SAC/HSN Code</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="number" name="hsnCode"
+                                    value="<%= vendor.hsnCode %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>PAN No.</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="panNo"
+                                    value="<%= vendor.panNo %>" onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>MSMED</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="msmed"
+                                    value="<%= vendor.msmed %>" onchange="updateVendor(this.value, this.name)" disabled>
+                            </td>
+                        </tr>
+                        <% var accountsFilePresent = false;
+                         var a=0;
+                         var n=0;
+                         for (var i=0 ; i<10 ; i++){ 
+                         if(vendor["accountExtra" + i]){ 
+                         a=a+1;   
+                         accountsFilePresent = true; %>
+                        <tr class="download">
+                            <th>Document</th>
+                            <td>
+                                <a class="" target="_blank" id="<%='accountExtra' + i%>"
+                                    href="/<%= vendor['accountExtra' + i] %>">
+                                    <%= vendor['accountExtra' + i].substring(22).split('.').slice(0, -1).join('.') %>
+                                </a>
+                                <% var ac = 'accountExtra' %>
+                            </td>
+                        </tr>
+                        <tr class="upload d-none">
+                            <th class="text-success">Document</th>
+                            <td>
+                                <input class="text-center bg-transparent border-none" type="text" name=""
+                                    id="input<%= ac + i%>"
+                                    value="<%= vendor['accountExtra' + i].substring(22).split('.').slice(0, -1).join('.') %>"
+                                    onchange="renameDoc('<%= vendor[ ac + i] %>', '<%= ac + i%>','<%= vendor.id %>');">
+
+                            </td>
+                            <td class="extraiconcell">
+                                <a class="" onclick="return confirm('Are you sure you want to Remove?');"
+                                    href="/venNet/removeFile/<%= vendor.id %>/<%= 'accountExtra' + i %>">
+                                    <i class="fas fa-trash-alt pl-3"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <% }else{
+                            n=i;
+                        } } %>
+                        <% if(a<10 && accountsFilePresent){  %>
+                        <tr class="upload d-none">
+                            <th class="">Document</th>
+                            <td>
+                                <form action="/venNet/uploadSingle/<%= vendor.id %>/accountExtra<%=n%>" method="post"
+                                    enctype="multipart/form-data">
+                                    <input type="file" class="" id="" name="accountExtra<%=n%>"
+                                        accept="image/*,.doc,.pdf">
+                                    <button class="btn btn-xs goldenYellow">Upload</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <% if(!accountsFilePresent){ %>
+                        <tr class="download">
+                            <th>Document</th>
+                            <td>No file present</td>
+                        </tr>
+                        <tr class="upload d-none">
+                            <th>Document</th>
+                            <td>
+                                <form action="/venNet/uploadAllExtra/<%= vendor.id %>" method="post"
+                                    enctype="multipart/form-data">
+                                    <input type="file" class="" id="accounts" name="accountsFiles" multiple
+                                        accept="image/*,.doc,.pdf">
+                                    <button class="btn btn-xs goldenYellow">Upload</button>
+                                </form>
+                                <small class="form-text text-muted">
+                                    *You can upload multiple image/files placed in a location locally by selecting
+                                    multiple images while holding ctrl key max limit is 10 files.
+                                </small><br>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <tr>
+                            <th>Contact Person(Authorised Signatory)</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="personName"
+                                    value="<%= vendor.personName %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Designation</th>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="designation"
+                                    value="<%= vendor.designation %>" onchange="updateVendor(this.value, this.name)"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <tr class="download">
+                            <th>Vendor Round Stamp</th>
+                            <td><% if(vendor['vendorRoundStamp']){%>
+                                <a id="<%='vendorRoundStamp'%>" class="" target="_blank"
+                                    href="/<%= vendor.vendorRoundStamp %>">
+                                    <%= vendor['vendorRoundStamp'].substring(22).split('.').slice(0, -1).join('.') %>
+                                </a>
+                                <% }else{ %>
+                                No file present
+                                <% } %>
+                            </td>
+                        </tr>
+                        <tr class="upload d-none">
+                            <th <% if(vendor.vendorRoundStamp){ %> class="text-success" <% } %>>Cancelled Cheque</th>
+                            <% if(vendor['vendorRoundStamp']){%>
+                            <td>
+                                <input class="text-center bg-transparent border-none" type="text" name=""
+                                    id="inputvendorRoundStamp"
+                                    value="<%= vendor['vendorRoundStamp'].substring(22).split('.').slice(0, -1).join('.') %>"
+                                    onchange="renameDoc('<%= vendor.vendorRoundStamp %>', 'vendorRoundStamp','<%= vendor.id %>');">
+                            </td>
+                            <td class="extraiconcell">
+                                <a class="" onclick="return confirm('Are you sure you want to Remove?');"
+                                    href="/venNet/removeFile/<%= vendor.id %>/<%= 'vendorRoundStamp' %>">
+                                    <i class="fas fa-trash-alt pl-3"></i>
+                                </a>
+                            </td>
                             <% }else{ %>
-                            No file present
+                            <td>
+                                <form action="/venNet/uploadSingle/<%= vendor.id %>/vendorRoundStamp" method="post"
+                                    enctype="multipart/form-data">
+                                    <input type="file" class="" id="" name="vendorRoundStamp"
+                                        accept="image/*,.doc,.pdf">
+                                    <button class="btn btn-xs goldenYellow">Upload</button>
+                                </form>
+                            </td>
                             <% } %>
-                        </td>
-                    </tr>
-                    <tr class="upload d-none">
-                        <th <% if(vendor.vendorRoundStamp){ %> class="text-success" <% } %>>Vendor Round Stamp</th>
-                        <td>
-                            <form action="/venNet/uploadSingle/<%= vendor.id %>/vendorRoundStamp" method="post"
-                                enctype="multipart/form-data">
-                                <input type="file" class="" id="" name="vendorRoundStamp" accept="image/*,.doc,.pdf">
-                                <button class="btn btn-xs btn-primary">Upload</button>
-                            </form>
-                        </td>
-                    </tr>
-                </table>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <% if(media[0]){ %>
-            <div class="mediaTable d-none h-100">
-                <table class="tab" align="center">
-                    <tr>
-                        <th>Id</th>
-                        <th>Media Option</th>
-                        <th>City</th>
-                        <th>Contact Person</th>
-                        <th>Contact Details</th>
-                    </tr>
-                    <% media.forEach(function(med){ %>
-                    <tr>
-                        <td><%= med.id%></td>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="mediaoption"
-                                value="<%= med.mediaoption %>" onchange="updateMedia(this.value, this.name)" disabled>
-                        </td>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="city"
-                                value="<%= med.city %>" onchange="updateMedia(this.value, this.name)" disabled>
-                        </td>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="contactperson"
-                                value="<%= med.contactperson %>" onchange="updateMedia(this.value, this.name)" disabled>
-                        </td>
-                        <td class="admin">
-                            <input class="text-center bg-transparent border-none" type="text" name="contactdetail"
-                                value="<%= med.contactdetail %>" onchange="updateMedia(this.value, this.name)" disabled>
-                        </td>
-                    </tr>
-                    <% }); %>
-                </table>
-            </div>
-            <% }else{ %>
             <div class="mediaTable d-none">
-                No media present
+                <h1 class="bg-black text-center">Vendor</h1>
+                <% if(media[0]){ %>
+                <div class="py-4">
+                    <table class="tab" align="center">
+                        <tr>
+                            <th>Id</th>
+                            <th>Media Option</th>
+                            <th>City</th>
+                            <th>Contact Person</th>
+                            <th>Contact Details</th>
+                        </tr>
+                        <% media.forEach(function(med){ %>
+                        <tr>
+                            <td><%= med.id%></td>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="mediaoption"
+                                    value="<%= med.mediaoption %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')"
+                                    disabled>
+                            </td>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="city"
+                                    value="<%= med.city %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')" disabled>
+                            </td>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="contactperson"
+                                    value="<%= med.contactperson %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')"
+                                    disabled>
+                            </td>
+                            <td class="admin">
+                                <input class="text-center bg-transparent border-none" type="text" name="contactdetail"
+                                    value="<%= med.contactdetail %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')"
+                                    disabled>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </table>
+                </div>
+                <% }else{ %>
+                <div class="my-5">
+                    NO MEDIA PRESENT
+                </div>
+                <% } %>
+                <a onclick="showMediaForm()" class="upload d-none btn goldenYellow my-3 mediaFormBtn">ADD MEDIA</a>
+                <div class="w-75 text-center mx-auto d-none mediaForm">
+                    <form action="/venNet/addMedia/<%=vendor.id%>" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <label>Media Option</label>
+                                <input type="text" class="form-control" name="mediaoption">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>City</label>
+                                <input type="text" class="form-control" name="city">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Contact Person</label>
+                                <input type="text" class="form-control" name="contactperson">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Contact Detail</label>
+                                <input type="text" class="form-control" name="contactdetail">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <input type="submit" class="btn goldenYellow btn-lg my-3">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <% } %>
         </div>
     </div>
 </div>
