@@ -1,115 +1,188 @@
 <% include ./partials/header %>
 
-<div class="contain row translucentBox">
-    <div class="col-md-6 mx-auto">
-        <h1 class="text-center">Excel Tools</h1>
-        <hr>
-        <form id="uploadForm" action="/api/upload/excel" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="">Upload Files</label>
-                <input type="file" class="form-control-file" id="" name="sourceFiles" multiple accept=".xlsx">
-                <small class="form-text text-muted">
-                    *You can upload multiple files placed in a location locally by selecting
-                    multiple files while holding ctrl key.
-                </small><br>
+<div class="contain row">
+    <div class="col-md-8 mx-auto translucentBox p-0">
+        <h1 class="text-center bg-black py-2">Excel Converter</h1>
+        <div>
+            <div class="p-4">
+                <div class="form-group d-flex justify-content-around">
+                    <div class="form-check form-check-inline btn indexbtn goldenYellow">
+                        <input class="form-check-input" type="radio" name="template" id="templateRadio1"
+                            value="hoardingsMasterSheet" checked>
+                        <label class="form-check-label" for="templateRadio1">Hoardings</label>
+                    </div>
+                    <div class="form-check form-check-inline btn indexbtn goldenYellow">
+                        <input class="form-check-input" type="radio" name="template" id="templateRadio2"
+                            value="bqsMasterSheet">
+                        <label class="form-check-label" for="templateRadio2">BQS</label>
+                    </div>
+                </div>
+                <div class="row text-center py-3">
+                    <label class="col-md-2">File Name</label>
+                    <input id="NewExcelName" type="text" class="col-md-9 text-body" name="fileName">
+                </div>
+                <div class="row text-center py-3">
+                    <div class="col-md-2">MASTER SHEET</div>
+                    <div id="hoardingsMasterSheet" class="col-md-5">
+                        <a target="_blank" class=" btn goldenYellow"
+                            href="/templates/hoardingsMasterSheet.xlsx">Billboards</a>
+                    </div>
+                    <div id="bqsMasterSheet" class="col-md-5">
+                        <a target="_blank" class=" btn goldenYellow" href="/templates/bqsMasterSheet.xlsx">Bus Queue
+                            Shelters</a>
+                    </div>
+                </div>
             </div>
-            <div class="text-center">
-                <input type="submit" id="" value="Upload Sheets" name="submit" class=" btn btn-dark btn-lg mb-1">
-            </div>
-            <span id="status"></span>
-        </form>
-        <div id="">
-            <hr>
-            <h3 class="text-center">Source Files</h3>
-            <hr>
             <div class="row">
-                <div class="col-md-6" id="sourceFile">
-                    <h4>Excel Files</h4>
-                    <% files.forEach(function(file){ 
-                    if(file.source == 1){%>
-                    <div id="file<%= file.id %>"><a target="_blank"
-                            href="/uploads/<%= file.name %>"><%= file.name.substring(14).split('.').slice(0, -1).join('.') %></a><button
-                            class="ml-2 btn btn-xs btn-danger"
-                            onclick="deleteSource('<%= file.name %>','<%= file.id %>');">Delete</button></div>
-                    <% }
-                    }); %>
+                <div class="col-md-6">
+                    <form id="uploadForm" action="/api/upload/excel" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <h4 class="goldenYellow text-center">Vendor Files</h4>
+                            <div class="p-4">
+                                <div class="row">
+                                    <input type="file" class="form-control-file col-md-9" id="" name="sourceFiles"
+                                        multiple accept=".xlsx">
+                                    <input type="submit" id="" value="Upload" name="submit"
+                                        class="col-md-2 btn goldenYellow mb-1">
+                                </div>
+                                <small class="form-text text-muted">
+                                    *You can upload multiple files placed in a location locally by selecting
+                                    multiple files while holding ctrl key.
+                                </small><br>
+                                <span id="status"  class="bg-danger"></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="">
+                        <h4 class="goldenYellow text-center">Source Files</h4>
+                        <div class="row p-4">
+                            <div class="col-md-6" id="sourceFile">
+                                <h5 class="text-center">XLS</h5>
+                                <% var excelfilePresent = true;
+                                files.forEach(function(file){ 
+                                if(file.source == 1){%>
+                                <!-- <div id="file<%= file.id %>"><a target="_blank"
+                                        href="/uploads/<%= file.name %>"><%= file.name.substring(14).split('.').slice(0, -1).join('.') %></a><button
+                                        class="ml-2 btn btn-xs btn-danger"
+                                        onclick="deleteSource('<%= file.name %>','<%= file.id %>');">Delete</button>
+                                </div> -->
+                                <div id="file<%= file.id %>" class="row align-items-center">
+                                    <a target="_blank" href="/uploads/<%= file.name %>"
+                                        class="col-md-10"><%= file.name.substring(14)%>
+                                    </a>
+                                    <a class="col-md-1" onclick="deleteSource('<%= file.name %>','<%= file.id %>');"><i
+                                            class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                                <% excelfilePresent = false; }
+                                }); 
+                                if(excelfilePresent){ %>
+                                <div class="text-center py-3 sourceNoFile">
+                                    NO FILE PRESENT
+                                </div>
+                                <% }else{ %>
+                                <!-- <button class="btn btn-sm btn-danger my-4" onclick="deleteAll()">
+                                    Delete all uploaded sheets
+                                </button> -->
+                                <% } %>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="text-center">PPT</h5>
+                                <% var pptfilePresent = true;
+                                pptFiles.forEach(function(file){ 
+                                if(file.source == 1){%>
+                                <div id="file<%= file.id %>" class="row align-items-center">
+                                    <a target="_blank" href="/uploads/<%= file.name %>"
+                                        class="col-md-10"><%= file.name.substring(14)%>
+                                    </a>
+                                </div>
+                                <% pptfilePresent = false; }
+                                }); 
+                                if(pptfilePresent){ %>
+                                <div class="text-center py-3">
+                                    NO FILE PRESENT
+                                </div>
+                                <% }%>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
-                    <h4>Ppt Files</h4>
-                    <% pptFiles.forEach(function(file){ 
-                    if(file.source == 1){%>
-                    <div id="file<%= file.id %>"><a target="_blank"
-                            href="/uploads/<%= file.name %>"><%= file.name.substring(14).split('.').slice(0, -1).join('.') %></a>
+                    <h4 class="goldenYellow text-center">Formatted Files</h4>
+                    <div class="row p-4">
+                        <div class="col-md-6" id="createdFile">
+                            <h5 class="text-center">XLS</h5>
+                            <% var excelfilePresent = true;
+                                files.forEach(function(file){ 
+                                if(file.source == 0){%>
+                            <div id="file<%= file.id %>" class="row align-items-center">
+                                <a target="_blank" href="/uploads/<%= file.name %>"
+                                    class="col-md-10"><%= file.name.substring(14)%>
+                                </a>
+                                <a class="col-md-1" onclick="deleteSource('<%= file.name %>','<%= file.id %>');"><i
+                                        class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                            <% excelfilePresent = false; }
+                                }); 
+                                if(excelfilePresent){ %>
+                            <div class="text-center py-3 formattedNoFile">
+                                NO FILE PRESENT
+                            </div>
+                            <% } %>
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-center">PPT</h5>
+                            <% var pptfilePresent = true;
+                                pptFiles.forEach(function(file){ 
+                                if(file.source == 0){%>
+                            <div id="file<%= file.id %>" class="row align-items-center">
+                                <a target="_blank" href="/uploads/<%= file.name %>"
+                                    class="col-md-10"><%= file.name.substring(14)%>
+                                </a>
+                            </div>
+                            <% pptfilePresent = false; }
+                                }); 
+                                if(pptfilePresent){ %>
+                            <div class="text-center py-3">
+                                NO FILE PRESENT
+                            </div>
+                            <% }%>
+                        </div>
                     </div>
-                    <% }
-                    }); %>
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-sm btn-danger my-4" onclick="deleteAll()">
-            Delete all uploaded sheets
-        </button>
-        <div id="">
-            <hr>
-            <h3 class="text-center">Created Files</h3>
-            <hr>
-            <div class="row">
-                <div class="col-md-6" id="createdFile">
-                    <h4>Excel Files</h4>
-                    <% files.forEach(function(file){ 
-                    if(file.source == 0){%>
-                    <div id="file<%= file.id %>"><a target="_blank"
-                            href="/uploads/<%= file.name %>"><%= file.name.substring(14).split('.').slice(0, -1).join('.') %></a><button
-                            class="ml-2 btn btn-xs btn-danger"
-                            onclick="deleteSource('<%= file.name %>','<%= file.id %>');">Delete</button></div>
-                    <% }
-                    }); %>
-                </div>
-                <div class="col-md-6">
-                    <h4>Ppt Files</h4>
-                    <% pptFiles.forEach(function(file){ 
-                    if(file.source == 0){%>
-                    <div id="file<%= file.id %>"><a target="_blank"
-                            href="/uploads/<%= file.name %>"><%= file.name.substring(14).split('.').slice(0, -1).join('.') %></a>
+                    <div class="row text-center toolBox pt-5">
+                        <div class="col-md-3">
+                            <a class="" onclick="executePython()">
+                                <i class="fas fa-running medIcon"></i>
+                            </a>
+                            <div>
+                                Convert
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="" onclick="cleanTable()">
+                                <i class="fas fa-broom medIcon"></i>
+                            </a>
+                            <div>
+                                Clear
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/tools/ppt" class=""><i class="fas fa-file-powerpoint medIcon"></i></a>
+                            <div>
+                                Presentation
+                            </div>
+                        </div>
+                        <div class="col-md-3 downloadConverted d-none">
+                            <a id="downloadMerged" target="_blank" class=""><i class="fas fa-download medIcon"></i></a>
+                            <div>
+                                Download
+                            </div>
+                        </div>
                     </div>
-                    <% }
-                    }); %>
                 </div>
             </div>
         </div>
-        <div class="form-group text-center">
-            <label>Name of the new file</label>
-            <input id="NewExcelName" type="text" class="form-control" name="fileName">
-        </div>
-        <div class="form-group">
-            <label>Template</label>
-            <br>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="template" id="templateRadio1"
-                    value="hoardingsMasterSheet" checked>
-                <label class="form-check-label" for="templateRadio1">Hoardings</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="template" id="templateRadio2" value="bqsMasterSheet">
-                <label class="form-check-label" for="templateRadio2">BQS</label>
-            </div>
-        </div>
-        <div id="hoardingsMasterSheet" class="">
-            <a target="_blank" href="/templates/hoardingsMasterSheet.xlsx">download hoarding Mastersheet</a>
-        </div>
-        <div id="bqsMasterSheet" class="d-none">
-            <a target="_blank" href="/templates/bqsMasterSheet.xlsx">download bqs MasterSheet</a>
-        </div>
-        <button class="btn btn-info mt-4 my-4" onclick="executePython()">
-            Run Script
-        </button>
-        <button class="btn btn-danger mt-4 my-4" onclick="cleanTable()">
-            Clean All
-        </button>
-        <a href="/tools/ppt" class="btn btn-primary mt-4 my-4">Ppt Tool</a>
-        <a id="downloadMerged" target="_blank" class="btn btn-info my-4 d-none"">
-            Download file
-        </a>
     </div>
 </div>
 <% include ./partials/footer2 %>

@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <div class="contain text-center m-0 pr-5">
     <div class="row">
-        <div class="col-md-2 text-left">
+        <div class="col-md-2 text-left position-fixed upper">
             <a class="btn bg-black my-2 w-75 activeLeftTab" id="vendorButton" onclick="vendordata('vendor')"><i
                     class="fab fa-vimeo-v p-2 float-left"></i> Vendor details</a>
             <a class="btn bg-black my-2 w-75" id="mediaButton" onclick="vendordata('media')"><i
@@ -12,6 +12,7 @@
                 Edit</a>
             <% } %>
         </div>
+        <div class="col-md-2"></div>
         <div class="col-md-10 translucentBox p-0">
             <div class="vendorTable">
                 <h1 class="bg-black text-center">Vendor</h1>
@@ -433,22 +434,23 @@
                             <td><%= med.id%></td>
                             <td class="admin">
                                 <input class="text-center bg-transparent border-none" type="text" name="mediaoption"
-                                    value="<%= med.mediaoption %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')"
-                                    disabled>
+                                    value="<%= med.mediaoption %>"
+                                    onchange="updateMedia(this.value, this.name, '<%= med.id%>')" disabled>
                             </td>
                             <td class="admin">
                                 <input class="text-center bg-transparent border-none" type="text" name="city"
-                                    value="<%= med.city %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')" disabled>
+                                    value="<%= med.city %>"
+                                    onchange="updateMedia(this.value, this.name, '<%= med.id%>')" disabled>
                             </td>
                             <td class="admin">
                                 <input class="text-center bg-transparent border-none" type="text" name="contactperson"
-                                    value="<%= med.contactperson %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')"
-                                    disabled>
+                                    value="<%= med.contactperson %>"
+                                    onchange="updateMedia(this.value, this.name, '<%= med.id%>')" disabled>
                             </td>
                             <td class="admin">
                                 <input class="text-center bg-transparent border-none" type="text" name="contactdetail"
-                                    value="<%= med.contactdetail %>" onchange="updateMedia(this.value, this.name, '<%= med.id%>')"
-                                    disabled>
+                                    value="<%= med.contactdetail %>"
+                                    onchange="updateMedia(this.value, this.name, '<%= med.id%>')" disabled>
                             </td>
                         </tr>
                         <% }); %>

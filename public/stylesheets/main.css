@@ -297,3 +297,13 @@ td.extraiconcell{
   background-color: transparent;
   border: none;
 }
+
+.medIcon{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 40px;
+}
+
+.upper{
+  z-index: 3;
+}

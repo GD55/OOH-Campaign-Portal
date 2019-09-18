@@ -18,16 +18,6 @@ $(document).ready(function () {
     if (window.location.pathname == '/tools/excel' || window.location.pathname == '/tools/ppt') {
         if (window.location.pathname == '/tools/excel') {
             tool = "excel";
-            $('input:radio[name="template"]').change(function () {
-                if ($("input[name='template']:checked").val() == 'hoardingsMasterSheet') {
-                    $("#hoardingsMasterSheet").removeClass('d-none');
-                    $("#bqsMasterSheet").addClass('d-none');
-                }
-                if ($("input[name='template']:checked").val() == 'bqsMasterSheet') {
-                    $("#hoardingsMasterSheet").addClass('d-none');
-                    $("#bqsMasterSheet").removeClass('d-none');
-                }
-            });
         }
         else {
             tool = "ppt";
@@ -52,7 +42,8 @@ $(document).ready(function () {
                         id = file[0];
                         destination = file[1];
                         deleteStr = 'deleteSource("' + destination + '","' + id + '")';
-                        $("#sourceFile").append("<div id='file" + id + "' ><a target='_blank' href='/uploads/" + destination + "'>" + destination.substring(14).split('.').slice(0, -1).join('.') + "</a><button class='ml-2 btn btn-xs btn-danger' onclick='" + deleteStr + "'>Delete</button></div>");
+                        $('.sourceNoFile').addClass('d-none');
+                        $("#sourceFile").append("<div id='file" + id + "'  class='row align-items-center'><a target='_blank' href='/uploads/" + destination + "' class='col-md-10'>" + destination.substring(14) + "</a><a class=col-md-1' onclick='" + deleteStr + "'><i class='fas fa-trash-alt'></a></div>");
                     });
                     console.log(files);
                 },
@@ -476,9 +467,11 @@ function executePython() {
             success: function (r) {
                 id = r.insertId;
                 var d = "/uploads/" + destination;
-                $("#downloadMerged").removeClass('d-none').attr("href", d);
+                $(".downloadConverted").removeClass('d-none')
+                $("#downloadMerged").attr("href", d);
                 deleteStr = 'deleteSource("' + destination + '","' + id + '")';
-                $("#createdFile").append("<div id='file" + id + "' ><a target='_blank' href='/uploads/" + destination + "'>" + destination.substring(14).split('.').slice(0, -1).join('.') + "</a><button class='ml-2 btn btn-xs btn-danger' onclick='" + deleteStr + "'>Delete</button></div>");
+                $('.formattedNoFile').addClass('d-none');
+                $("#createdFile").append("<div id='file" + id + "'  class='row align-items-center' ><a target='_blank' href='/uploads/" + destination + "' class='col-md-10'>" + destination.substring(14) + "</a><a class='col-md-1' onclick='" + deleteStr + "'><i class='fas fa-trash-alt'></i></a></div>");
             }
         });
     }
