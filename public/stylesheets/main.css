@@ -38,7 +38,7 @@ body {
   justify-content: space-around;
 }
 
-#homeicon{
+#homeicon {
   font-size: 25;
   padding-left: 20px;
 }
@@ -284,26 +284,30 @@ a:hover {
   vertical-align: middle !important;
 }
 
-.firstRow td{
+.firstRow td {
   background-color: black;
 }
 
-td form{
+td form {
   margin-block-end: 0;
 }
 
-td.extraiconcell{
+td.extraiconcell {
   width: 30px;
   background-color: transparent;
   border: none;
 }
 
-.medIcon{
+.medIcon {
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 40px;
 }
 
-.upper{
+.upper {
   z-index: 3;
+}
+
+a.goldenYellow:hover {
+  color: black !important;
 }

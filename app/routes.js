@@ -159,6 +159,57 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
+    // search directory by city
+    app.get('/api/directory/name/:search', adminorcoordinator, function (req, res) {
+        var sql = "SELECT * FROM `directory` WHERE name LIKE '%" + req.params.search + "%'";
+        con.query(sql, function (err, result, fields) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+            }
+        });
+    });
+
+    // search directory by city
+    app.get('/api/directory/city/:search', adminorcoordinator, function (req, res) {
+        var sql = "SELECT * FROM `directory` WHERE city LIKE '%" + req.params.search + "%'";
+        con.query(sql, function (err, result, fields) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+            }
+        });
+    });
+
+    // search directory by city
+    app.get('/api/directory/organization/:search', adminorcoordinator, function (req, res) {
+        var sql = "SELECT * FROM `directory` WHERE organization LIKE '%" + req.params.search + "%'";
+        con.query(sql, function (err, result, fields) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+            }
+        });
+    });
+
+    // update vendor
+    app.put('/api/directory/:contact_id', notDesigerOrCoordinator, function (req, res) {
+        var field = req.body.field;
+        var value = req.body.value;
+        var sql = "UPDATE `directory` SET `" + field + "`='" + value + "' WHERE id =?";
+        // var sql = "UPDATE `projects` SET `?`=? WHERE id =?";
+        con.query(sql, [req.params.contact_id], function (err, result, fields) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+            }
+        });
+    });
+
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
@@ -908,9 +959,30 @@ module.exports = function (app, passport, con, upload) {
         });
     });
 
+    // =====================================
+    // DIRECTORY ===========================
+    // =====================================
+
+    // main Page
+    app.get('/directory', adminorcoordinator, function (req, res) {
+        res.render('directory', {
+            currentUser: req.user
+        });
+    });
+
+    app.post('/directory', adminorcoordinator, function (req, res) {
+        var insertMediaQuery = "INSERT INTO `directory`(`name`, `phoneNo`, `emailId`, `state`, `city`, `designation`, `organization`, `department`, `address`, `notes`) VALUES (?,?,?,?,?,?,?,?,?,?)"
+        con.query(insertMediaQuery, [req.body.name, req.body.phoneNo, req.body.emailId, req.body.state, req.body.city, req.body.designation, req.body.organization, req.body.department, req.body.address, req.body.notes], function (err, result, fields) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+            }
+        });
+        res.redirect('back')
+    });
+
 };
-
-
 
 // =====================================
 // MIDDLEWARE ==========================

@@ -2,6 +2,7 @@ var currentEditId;
 var desig;
 var currentUserId;
 var vendorId;
+var contactId;
 var y = [];
 var tool = "";
 var currentPage;
@@ -539,4 +540,63 @@ function updateMedia(v, name, id) {
         url: '/api/media/' + id,
         data: updateData
     });
+}
+
+function directorySearch() {
+    var searchText = $('#directorySearch').val();
+    cleardirectory();
+    $.getJSON("/api/directory/" + $("input[name='searchBy']:checked").val() + "/" + searchText, function (data) {
+        heading = "<tr><th>Edit</th><th>Name</th><th>Phone No.</th><th>Email Id</th><th>State</th><th>City</th><th>Designation</th><th>Organization</th><th>Department</th><th>Adress</th><th>Notes</th></tr>";
+        $("#append").append(heading);
+        data.forEach(function (contact) {
+            var newContact = "<tr id='contact" + contact.id + "'><td><a onclick='directoryEdit(\"" + contact.id + "\")'><i class='fas fa-edit p-2'></i></a></td><td> <input class='text-center bg-transparent border-none' type='text' name='name' value='" + contact.name + "' onchange='updateDirectory(this.value, this.name)' disabled></input> </td><td> <input class='text-center bg-transparent border-none' type='number' name='phoneNo' value='" + contact.phoneNo + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td>  <input class='text-center bg-transparent border-none' type='email' name='emailId' value='" + contact.emailId + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td>  <input class='text-center bg-transparent border-none' type='text' name='state' value='" + contact.state + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td>  <input class='text-center bg-transparent border-none' type='text' name='city' value='" + contact.city + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td>  <input class='text-center bg-transparent border-none' type='text' name='designation' value='" + contact.designation + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td>  <input class='text-center bg-transparent border-none' type='text' name='organization' value='" + contact.organization + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td>  <input class='text-center bg-transparent border-none' type='text' name='department' value='" + contact.department + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td><a href='#' class='hide' data-toggle='popover' data-trigger='focus' data-content='" + contact.address + "'><i class='fas fa-info-circle'></i></a>  <input class='text-center bg-transparent border-none d-none hidden' type='text' name='address' value='" + contact.address + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td><td><a class='hide' href='#' data-toggle='popover' data-trigger='focus' data-content='" + contact.notes + "'><i class='fas fa-info-circle'></i></a><input class='text-center bg-transparent border-none d-none hidden' type='text' name='notes' value='" + contact.notes + "' onchange='updateDirectory(this.value, this.name)' disabled></input></td></tr>";
+            $("#append").append(newContact);
+            $('[data-toggle="popover"]').popover();
+        });
+    });
+    $('[data-toggle="popover"]').popover();
+}
+
+$('.popover-dismiss').popover({
+    trigger: 'focus'
+})
+
+$('#directorySearch').on("keyup", function (e) {
+    if (e.keyCode == 13) {
+        directorySearch();
+    }
+});
+
+
+function cleardirectory() {
+    $("#append").children().remove();
+}
+
+function updateDirectory(v, name) {
+    var updateData = { field: name, value: v };
+    $.ajax({
+        method: 'PUT',
+        url: '/api/directory/' + contactId,
+        data: updateData
+    });
+}
+
+function directoryEdit(id) {
+    contactId = id;
+    $('.hidden').removeClass('d-none');
+    $('.hide').addClass('d-none');
+    $('#contact' + id).find("input").prop("disabled", false).removeClass("border-none");
+}
+
+function changeDirectory(b) {
+    $('#addnewButton').removeClass('activeLeftTab');
+    $('#searchButton').removeClass('activeLeftTab');
+    $('#searchDiv').addClass('d-none');
+    $('#addnewDiv').addClass('d-none');
+    $('#' + b + 'Button').addClass('activeLeftTab');
+    $('#' + b + 'Div').removeClass('d-none');
+}
+
+function popover() {
+    $('[data-toggle="popover"]').popover();
 }

@@ -1,0 +1,119 @@
+<% include ./partials/header %>
+
+<div class="contain text-center m-0 pr-5">
+    <div class="row">
+        <div class="col-md-2 text-left position-fixed upper">
+            <a class="btn bg-black my-2 w-75" onclick="changeDirectory('addnew')" id="addnewButton"><i
+                    class="fas fa-angle-up p-2 float-left"></i>Add
+                New</a>
+            <a class="btn bg-black my-2 w-75 activeLeftTab" onclick="changeDirectory('search')" id="searchButton"><i
+                    class="fas fa-angle-double-up p-2 float-left"></i>Search</a>
+        </div>
+        <div class="col-md-2">
+
+        </div>
+        <div id="searchDiv" class="col-md-10 translucentBox p-0 pb-4">
+            <div class="">
+                <h1 class="text-center bg-black">Directory</h1>
+                <div class="row pt-4">
+                    <div class="col-md-2"></div>
+                    <div class="form-row col-md-8 text-center">
+                        <div class="form-group col-md-11">
+                            <input id="directorySearch" type="text" class="form-control" name="Search" autofocus>
+                        </div>
+                        <div class="form-group col-md-1 ">
+                            <a onclick="directorySearch()" class="p-4">
+                                <i class="fas fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="pr-5">Search Type </label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="completedRadio1" value="name">
+                        <label class="form-check-label" for="completedRadio1">Name</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="completedRadio2" value="city"
+                            checked>
+                        <label class="form-check-label" for="completedRadio2">City</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="completedRadio3"
+                            value="organization">
+                        <label class="form-check-label" for="completedRadio3">Organization</label>
+                    </div>
+                </div>
+                <div class="overflow-auto">
+                    <table align="center" class="tab" id="append">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="addnewDiv" class="col-md-10 p-0 d-none">
+            <h1 class="text-center bg-black m-0">New Contact</h1>
+            <div class="translucentBox">
+                <form action="/directory" method="POST">
+                    <div class="p-3 row">
+                        <div class="form-group col-md-6">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Phone No.</label>
+                            <input type="number" class="form-control" name="phoneNo" min="1000000000" max="9999999999"
+                                required>
+                        </div>
+                    </div>
+                    <div class="p-3 row">
+                        <div class="form-group col-md-4">
+                            <label>Email Id</label>
+                            <input type="email" class="form-control" name="emailId" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>State</label>
+                            <input type="text" class="form-control" name="state" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>City</label>
+                            <input type="text" class="form-control" name="city" required>
+                        </div>
+                    </div>
+                    <div class="p-3 row">
+                        <div class="form-group col-md-4">
+                            <label>Designation</label>
+                            <input type="text" class="form-control" name="designation" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Organization</label>
+                            <input type="text" class="form-control" name="organization" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Department</label>
+                            <input type="text" class="form-control" name="department" required>
+                        </div>
+                    </div>
+                    <div class="p-3 row">
+                        <div class="form-group col-md-6">
+                            <label>Address</label>
+                            <textarea class="form-control" rows="5" name="address" required></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Notes</label>
+                            <textarea class="form-control" rows="5" name="notes" required></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <input type="submit" id="submitButton" class=" btn goldenYellow btn-lg my-3">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('[data-toggle="popover"]').popover();
+</script>
+<% include ./partials/footer2 %>
