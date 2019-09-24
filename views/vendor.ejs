@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <div class="contain text-center m-0 pr-5">
     <div class="row">
-        <div class="col-md-2 text-left position-fixed upper">
+        <div class="col-md-2 text-left position-fixed upper textshadow">
             <a class="btn bg-black my-2 w-75 activeLeftTab shake" id="vendorButton" onclick="vendordata('vendor')"><i
                     class="fab fa-vimeo-v p-2 float-left"></i> Vendor details</a>
             <a class="btn bg-black my-2 w-75 shake" id="mediaButton" onclick="vendordata('media')"><i
@@ -15,7 +15,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-10 translucentBox p-0">
             <div class="vendorTable">
-                <h1 class="bg-black text-center"><%= vendor.vendorName %></h1>
+                <h1 class="bg-black text-center textshadow  py-2 "><%= vendor.vendorName %></h1>
                 <div class="py-3">
                     <table class="tab py-3" align="center">
                         <tr>
@@ -418,7 +418,7 @@
                 </div>
             </div>
             <div class="mediaTable d-none">
-                <h1 class="bg-black text-center">Vendor</h1>
+                <h1 class="bg-black text-center py-2 textshadow"><%= vendor.vendorName %></h1>
                 <% if(media[0]){ %>
                 <div class="py-4">
                     <table class="tab" align="center">

@@ -412,3 +412,13 @@ a.goldenYellow:hover {
   margin-top: -35px;
   margin-left: -10px;
 }
+
+.textshadow{
+  text-shadow: 2px 4px 3px rgba(255,255,255,0.5);
+  font-weight: bold !important;
+}
+
+.whiteback {
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+}

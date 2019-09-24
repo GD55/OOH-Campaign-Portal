@@ -1,7 +1,7 @@
 <% include ./partials/header %>
 <div class="contain text-center m-0 h-100 pr-5">
     <div class="row">
-        <div class="col-md-2 text-left  position-fixed upper">
+        <div class="col-md-2 text-left  position-fixed upper textshadow">
             <a class="btn bg-black my-2 w-75 shake" href="/venNet/new"><i class="fas fa-angle-up p-2 float-left"></i> Add
                 Individual</a>
             <a class="btn bg-black my-2 w-100 tgoldenYellow shake" href="/venNet/upload"><i
@@ -12,11 +12,9 @@
         <div class="col-md-2">
 
         </div>
-        <div class="col-md-10 translucentBox">
-            <div class="mx-auto">
-                <h1 class="text-center bg-black"> New Vendor</h1>
-            </div>
-            <div class=" p-4">
+        <div class="col-md-10 ">
+            <h1 class="text-center bg-black textshadow m-0  py-2 "> New Vendor</h1>
+            <div class="translucentBox p-4">
                 <form action="/venNet/upload" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="">Uplaod .xlsx file for venNet</label>
