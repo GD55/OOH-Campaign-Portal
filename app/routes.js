@@ -474,38 +474,38 @@ module.exports = function (app, passport, con, upload) {
             //  WorkSheet Header
             worksheet.columns = [
                 { header: 'id', key: 'id', width: 5 },
-                { header: 'organizationType', key: 'organizationType', width: 30 },
-                { header: 'vendorName', key: 'vendorName', width: 30 },
-                { header: 'officeAddress', key: 'officeAddress', width: 100 },
-                { header: 'ocity', key: 'ocity', width: 30 },
-                { header: 'opinCode', key: 'opinCode', width: 30 },
-                { header: 'ostate', key: 'ostate', width: 30 },
-                { header: 'registeredAddress', key: 'registeredAddress', width: 30 },
-                { header: 'rcity', key: 'rcity', width: 30 },
-                { header: 'rpinCode', key: 'rpinCode', width: 30 },
-                { header: 'rstate', key: 'rstate', width: 30 },
-                { header: 'website', key: 'website', width: 30 },
-                { header: 'materialDescription', key: 'materialDescription', width: 30 },
-                { header: 'serviceDescription', key: 'serviceDescription', width: 30 },
-                { header: 'contactPersonName', key: 'contactPersonName', width: 30 },
-                { header: 'mobileNo', key: 'mobileNo', width: 30 },
-                { header: 'landlineNo', key: 'landlineNo', width: 30 },
+                { header: 'Type of Organization', key: 'organizationType', width: 30 },
+                { header: 'Name of vendor', key: 'vendorName', width: 30 },
+                { header: 'Coorporate Address', key: 'officeAddress', width: 100 },
+                { header: 'City', key: 'ocity', width: 30 },
+                { header: 'Pin Code', key: 'opinCode', width: 30 },
+                { header: 'State', key: 'ostate', width: 30 },
+                { header: 'Registered Address', key: 'registeredAddress', width: 30 },
+                { header: 'City', key: 'rcity', width: 30 },
+                { header: 'Pin Code', key: 'rpinCode', width: 30 },
+                { header: 'State', key: 'rstate', width: 30 },
+                { header: 'Website', key: 'website', width: 30 },
+                { header: 'Presence', key: 'materialDescription', width: 30 },
+                { header: 'Service Type', key: 'serviceDescription', width: 30 },
+                { header: 'Concerned Person(Media Related)', key: 'contactPersonName', width: 30 },
+                { header: 'Mobile No.', key: 'mobileNo', width: 30 },
+                { header: 'Landline No.', key: 'landlineNo', width: 30 },
                 { header: 'faxNo', key: 'faxNo', width: 30 },
-                { header: 'emailId', key: 'emailId', width: 30 },
-                { header: 'bankName', key: 'bankName', width: 30 },
-                { header: 'nameOfBank', key: 'nameOfBank', width: 30 },
-                { header: 'bankBranch', key: 'bankBranch', width: 30 },
-                { header: 'accountNumber', key: 'accountNumber', width: 30 },
-                { header: 'ifscCode', key: 'ifscCode', width: 30 },
-                { header: 'gstPercentage', key: 'gstPercentage', width: 30 },
-                { header: 'tdsPercentage', key: 'tdsPercentage', width: 30 },
-                { header: 'gstNo', key: 'gstNo', width: 30 },
-                { header: 'stateCode', key: 'stateCode', width: 30 },
-                { header: 'hsnCode', key: 'hsnCode', width: 30 },
-                { header: 'panNo', key: 'panNo', width: 30 },
-                { header: 'msmed', key: 'msmed', width: 30 },
-                { header: 'personName', key: 'personName', width: 30 },
-                { header: 'designation', key: 'designation', width: 30 }
+                { header: 'Email Address', key: 'emailId', width: 30 },
+                { header: 'A/C Name', key: 'bankName', width: 30 },
+                { header: 'Bank Name', key: 'nameOfBank', width: 30 },
+                { header: 'Bank Branch', key: 'bankBranch', width: 30 },
+                { header: 'A/C No.', key: 'accountNumber', width: 30 },
+                { header: 'IFSC Code', key: 'ifscCode', width: 30 },
+                { header: 'GST(%)', key: 'gstPercentage', width: 30 },
+                { header: 'TDS(%)', key: 'tdsPercentage', width: 30 },
+                { header: 'GST No.', key: 'gstNo', width: 30 },
+                { header: 'State Code', key: 'stateCode', width: 30 },
+                { header: 'SAC/HSN Code', key: 'hsnCode', width: 30 },
+                { header: 'PAN No.', key: 'panNo', width: 30 },
+                { header: 'MSMED', key: 'msmed', width: 30 },
+                { header: 'Contact Person(Authorised Signatory)', key: 'personName', width: 30 },
+                { header: 'Designation', key: 'designation', width: 30 }
             ];
 
             // Add Array Rows
@@ -980,6 +980,17 @@ module.exports = function (app, passport, con, upload) {
             }
         });
         res.redirect('back')
+    });
+
+    // =====================================
+    // Help PAGE ===========================
+    // =====================================
+
+    // help Page
+    app.get('/help', isLoggedIn, function (req, res) {
+        res.render('help', {
+            currentUser: req.user
+        });
     });
 
 };

@@ -24,8 +24,8 @@
 
 <body>
     <div class="navb row p-0 m-0">
-        <a class="navItem col-md-1 py-2" id="homeIcon" href="/"><i class="fas fa-home"></i></a>
-        <div class="nav col-md-11">
+        <a class="navItem col-md-1 py-2 homeIcon" href="/"><i class="fas fa-home"></i></a>
+        <div class="nav col-md-10">
             <% if(currentUser){ %>
             <a class="navItem" href="/profile"> Hello <span <% if(currentUser.designation == "admin"){ %>
                     class="tgoldenYellow"
@@ -42,4 +42,5 @@
             <a class="navItem" href="/logout"> LOGOUT</a>
             <% } %>
         </div>
+        <a class="navItem col-md-1 float-right py-2 homeIcon" href="/help"><i class=" float-right fas fa-question-circle"></i></a>
     </div>

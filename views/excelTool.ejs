@@ -22,13 +22,14 @@
                     <input id="NewExcelName" type="text" class="col-md-9 text-body" name="fileName">
                 </div>
                 <div class="row text-center py-3">
-                    <div class="col-md-2">MASTER SHEET</div>
+                    <div class="col-md-2 mt-3">MASTER SHEET</div>
                     <div id="hoardingsMasterSheet" class="col-md-5">
-                        <a target="_blank" class=" btn goldenYellow"
+                        <a target="_blank" class=" btn buttona goldenYellow"
                             href="/templates/hoardingsMasterSheet.xlsx">Billboards</a>
                     </div>
                     <div id="bqsMasterSheet" class="col-md-5">
-                        <a target="_blank" class=" btn goldenYellow" href="/templates/bqsMasterSheet.xlsx">Bus Queue
+                        <a target="_blank" class=" btn buttona goldenYellow" href="/templates/bqsMasterSheet.xlsx">Bus
+                            Queue
                             Shelters</a>
                     </div>
                 </div>
@@ -49,7 +50,7 @@
                                     *You can upload multiple files placed in a location locally by selecting
                                     multiple files while holding ctrl key.
                                 </small><br>
-                                <span id="status"  class="bg-danger"></span>
+                                <span id="status" class="bg-danger"></span>
                             </div>
                         </div>
                     </form>
@@ -151,7 +152,7 @@
                         </div>
                     </div>
                     <div class="row text-center toolBox pt-5">
-                        <div class="col-md-3">
+                        <div class="col-md-3 shake">
                             <a class="" onclick="executePython()">
                                 <i class="fas fa-running medIcon"></i>
                             </a>
@@ -159,7 +160,7 @@
                                 Convert
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 shake">
                             <a class="" onclick="cleanTable()">
                                 <i class="fas fa-broom medIcon"></i>
                             </a>
@@ -167,14 +168,15 @@
                                 Clear
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 shake">
                             <a href="/tools/ppt" class=""><i class="fas fa-file-powerpoint medIcon"></i></a>
                             <div>
                                 Presentation
                             </div>
                         </div>
-                        <div class="col-md-3 downloadConverted d-none">
-                            <a id="downloadMerged" target="_blank" class=""><i class="fas fa-download medIcon"></i></a>
+                        <div class="col-md-3 downloadConverted d-none shake">
+                            <a id="downloadMerged" target="_blank" class="shake"><i
+                                    class="fas fa-download medIcon"></i></a>
                             <div>
                                 Download
                             </div>

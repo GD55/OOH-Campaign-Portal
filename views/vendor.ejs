@@ -2,12 +2,12 @@
 <div class="contain text-center m-0 pr-5">
     <div class="row">
         <div class="col-md-2 text-left position-fixed upper">
-            <a class="btn bg-black my-2 w-75 activeLeftTab" id="vendorButton" onclick="vendordata('vendor')"><i
+            <a class="btn bg-black my-2 w-75 activeLeftTab shake" id="vendorButton" onclick="vendordata('vendor')"><i
                     class="fab fa-vimeo-v p-2 float-left"></i> Vendor details</a>
-            <a class="btn bg-black my-2 w-75" id="mediaButton" onclick="vendordata('media')"><i
+            <a class="btn bg-black my-2 w-75 shake" id="mediaButton" onclick="vendordata('media')"><i
                     class="fas fa-ad p-2 float-left"></i>Media Details</a>
             <% if(currentUser.designation == "admin" || currentUser.designation == "accountant" || currentUser.designation == "alliance"){ %>
-            <a class="btn bg-black my-2 w-75" id="editButton" onclick="vendorEdit('<%=vendor.id%>')"><i
+            <a class="btn bg-black my-2 w-75 shake" id="editButton" onclick="vendorEdit('<%=vendor.id%>')"><i
                     class="fas fa-user-edit p-2 float-left"></i>
                 Edit</a>
             <% } %>
@@ -461,7 +461,7 @@
                     NO MEDIA PRESENT
                 </div>
                 <% } %>
-                <a onclick="showMediaForm()" class="upload d-none btn goldenYellow my-3 mediaFormBtn">ADD MEDIA</a>
+                <a onclick="showMediaForm()" class="buttona upload d-none btn goldenYellow my-3 mediaFormBtn">ADD MEDIA</a>
                 <div class="w-75 text-center mx-auto d-none mediaForm">
                     <form action="/venNet/addMedia/<%=vendor.id%>" method="POST">
                         <div class="form-row">
@@ -483,7 +483,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <input type="submit" class="btn goldenYellow btn-lg my-3">
+                            <button type="submit" class="buttona btn goldenYellow btn-lg my-3">SUBMIT</button>
                         </div>
                     </form>
                 </div>
