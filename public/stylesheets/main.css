@@ -435,4 +435,5 @@ a.goldenYellow:hover {
 .head h2 {
   display: inline;
   padding: 5px;
+  font-weight: bold;
 }
