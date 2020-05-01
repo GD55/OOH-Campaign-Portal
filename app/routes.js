@@ -160,7 +160,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // search directory by city
-    app.get('/api/directory/name/:search', adminorcoordinator, function (req, res) {
+    app.get('/api/directory/name/:search', adminoralliance, function (req, res) {
         var sql = "SELECT * FROM `directory` WHERE name LIKE '%" + req.params.search + "%'";
         con.query(sql, function (err, result, fields) {
             if (err) {
@@ -172,7 +172,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // search directory by city
-    app.get('/api/directory/city/:search', adminorcoordinator, function (req, res) {
+    app.get('/api/directory/city/:search', adminoralliance, function (req, res) {
         var sql = "SELECT * FROM `directory` WHERE city LIKE '%" + req.params.search + "%'";
         con.query(sql, function (err, result, fields) {
             if (err) {
@@ -184,7 +184,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // search directory by city
-    app.get('/api/directory/organization/:search', adminorcoordinator, function (req, res) {
+    app.get('/api/directory/organization/:search', adminoralliance, function (req, res) {
         var sql = "SELECT * FROM `directory` WHERE organization LIKE '%" + req.params.search + "%'";
         con.query(sql, function (err, result, fields) {
             if (err) {
@@ -196,7 +196,7 @@ module.exports = function (app, passport, con, upload) {
     });
 
     // update vendor
-    app.put('/api/directory/:contact_id', notDesigerOrCoordinator, function (req, res) {
+    app.put('/api/directory/:contact_id', adminoralliance, function (req, res) {
         var field = req.body.field;
         var value = req.body.value;
         var sql = "UPDATE `directory` SET `" + field + "`='" + value + "' WHERE id =?";
@@ -531,7 +531,6 @@ module.exports = function (app, passport, con, upload) {
                 var filePath = './uploads/' + fileName;
                 var workbook = xlsx.readFile(filePath);
                 var workSheet = workbook.Sheets[workbook.SheetNames[0]];
-                console.log(workSheet.C14.v);
                 var address = undefined(workSheet.C19) + undefined(workSheet.C20);
                 console.log(address);
                 console.log(address.length);
@@ -964,13 +963,13 @@ module.exports = function (app, passport, con, upload) {
     // =====================================
 
     // main Page
-    app.get('/directory', adminorcoordinator, function (req, res) {
+    app.get('/directory', adminoralliance, function (req, res) {
         res.render('directory', {
             currentUser: req.user
         });
     });
 
-    app.post('/directory', adminorcoordinator, function (req, res) {
+    app.post('/directory', adminoralliance, function (req, res) {
         var insertMediaQuery = "INSERT INTO `directory`(`name`, `phoneNo`, `emailId`, `state`, `city`, `designation`, `organization`, `department`, `address`, `notes`) VALUES (?,?,?,?,?,?,?,?,?,?)"
         con.query(insertMediaQuery, [req.body.name, req.body.phoneNo, req.body.emailId, req.body.state, req.body.city, req.body.designation, req.body.organization, req.body.department, req.body.address, req.body.notes], function (err, result, fields) {
             if (err) {
@@ -1054,6 +1053,24 @@ function adminorcoordinator(req, res, next) {
     if (req.isAuthenticated()) {
         // if user logged in is admin
         if (req.user.designation == "admin" || req.user.designation == "coordinator") {
+            return next();
+        } else {
+            req.flash('indexMessage', 'You dont have enough permission');
+            // if they aren't redirect them to the home page
+            res.redirect('/');
+        }
+    } else {
+        req.flash('loginMessage', 'You need to log in first');
+        // if they aren't redirect them to the home page
+        res.redirect('/login');
+    }
+}
+
+function adminoralliance(req, res, next) {
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()) {
+        // if user logged in is admin
+        if (req.user.designation == "admin" || req.user.designation == "alliance") {
             return next();
         } else {
             req.flash('indexMessage', 'You dont have enough permission');
