@@ -9,3 +9,6 @@
 
 #vscode setting
 /.vscode
+
+#env file
+/.env

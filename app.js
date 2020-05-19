@@ -8,11 +8,12 @@ var express = require('express'),
     morgan = require('morgan'),
     multer = require('multer'),
     app = express(),
-    port = process.env.PORT || 3000 ,
     passport = require('passport'),
     flash = require('connect-flash'),
     methodOverride = require("method-override"),
     mysql = require('mysql');
+
+require('dotenv').config({ path: __dirname + '/.env' });
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -26,10 +27,10 @@ var upload = multer({ storage: storage });
 
 // var dbconfig = require('./database');
 var con = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "office"
+    host: process.env.DATABASEHost,
+    user: process.env.DATABASEUser,
+    password: process.env.DATABASEPassword,
+    database: process.env.DATABASEName
 });
 
 
@@ -55,7 +56,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-    secret: 'dancingonthefloor',
+    secret: process.env.SessonSecret,
     resave: true,
     saveUninitialized: true
 })); // session secret
@@ -67,5 +68,5 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport, con, upload); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+app.listen(process.env.PORT);
+console.log('The magic happens on port ' + process.env.PORT);
